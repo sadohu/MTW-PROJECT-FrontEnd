@@ -12,11 +12,12 @@ import { MatCheckboxModule } from "@angular/material/checkbox"
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-    exports:[
+    exports: [
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
@@ -30,10 +31,11 @@ import { MatCardModule } from '@angular/material/card';
         MatToolbarModule,
         MatGridListModule,
         MatDatepickerModule,
-        MatNativeDateModule ,
+        MatNativeDateModule,
         MatCardModule,
+        MatIconModule,
     ]
 })
-export class AppMaterialModule{
+export class AppMaterialModule {
 
 }

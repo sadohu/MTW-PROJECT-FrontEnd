@@ -9,12 +9,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from './app.material.module';
-import { MatIconModule } from '@angular/material/icon';
 
 import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
 
 import { LoginComponent } from './components/login/login.component';
+import { CompanyMainComponent } from './components/company-main/company-main.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { LoginComponent } from './components/login/login.component';
     MenuComponent,
     IndexComponent,
     LoginComponent,
+    CompanyMainComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,6 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     AppMaterialModule,
     CommonModule,
-    MatIconModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }
