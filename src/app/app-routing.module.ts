@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './components/login/login.component';
+import { CompanyMainComponent } from './components/company-main/company-main.component';
 
 const routes: Routes = [
-
+  { path: 'company', component: CompanyMainComponent },
 
   { path: '', component: IndexComponent },
   { path: 'index', component: IndexComponent },
