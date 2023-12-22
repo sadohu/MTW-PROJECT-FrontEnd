@@ -18,9 +18,17 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    AppMaterialModule,
+    CommonModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
