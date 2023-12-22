@@ -14,7 +14,7 @@
                         <img src="assets/img/mail.svg" alt="" />
                         <label htmlFor="" class="font-normal --title-pj">Correo electrónico</label>
                     </div>
-                    <input type="text" class="py-3 " name="email" autoComplete="username" defaultValue={user?.email}
+                    <input type="text" class="py-3 " name="email" [(ngModel)]="user.username"
                         placeholder="usuario@dydluxury.com" />
                 </div>
 
@@ -23,8 +23,8 @@
                         <img src="assets/img/lock.svg" alt="" />
                         <label htmlFor="" class="font-normal --title-pj">Clave</label>
                     </div>
-                    <input type="password" class="py-3 " name="password" autoComplete="current-password"
-                        defaultValue={user?.password} placeholder="Contraseña" />
+                    <input type="password" class="py-3 " name="password" [(ngModel)]="user.password"
+                        placeholder="Contraseña" />
                 </div>
             </div>
 
@@ -34,7 +34,8 @@
 
             <div class="flex flex-col gap-5 mt-12 w-full">
                 <a to="/" class="flex flex-col w-full">
-                    <button class="border-2 rounded-sm py-3 text-white --form-button-log">Iniciar sesión</button>
+                    <button class="border-2 rounded-sm py-3 text-white --form-button-log" (click)="loginUser()">Iniciar
+                        sesión</button>
                 </a>
                 <a to="/new-user" class="flex flex-col w-full">
                     <button class="border-2 rounded-sm py-3  --form-button-new">¿Aun no tienes cuenta?
