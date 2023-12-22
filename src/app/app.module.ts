@@ -11,9 +11,15 @@ import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from './app.material.module';
 import { MatIconModule } from '@angular/material/icon';
 
+import { MenuComponent } from './menu/menu.component';
+import { IndexComponent } from './index/index.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
+    MenuComponent,
+    IndexComponent,
   ],
   imports: [
     BrowserModule,
