@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
@@ -11,7 +12,7 @@ import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 export class LoginComponent {
   user: User = {};
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   loginUser() {
     // Validation
@@ -26,6 +27,7 @@ export class LoginComponent {
         }
 
         localStorage.setItem("USER", JSON.stringify(response));
+        this.router.navigate(["/company"]);
       }
     );
   }
