@@ -1,0 +1,29 @@
+.--bg {
+    background-color: var(--gray-200);
+}
+
+.--form-container {
+    width: 32rem;
+}
+
+.--title-pj {
+    color: var(--blue-100);
+}
+
+.--title-mtw {
+    color: var(--lightblue-600);
+}
+
+.--form-login input {
+    background-color: var(--gray-200);
+}
+
+.--form-button-log {
+    background-color: var(--blue-100);
+    border-color: var(--blue-100);
+}
+
+.--form-button-new {
+    border-color: var(--blue-100);
+    color: var(--blue-100);
+}

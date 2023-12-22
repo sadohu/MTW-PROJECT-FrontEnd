@@ -1,0 +1,46 @@
+<app-menu></app-menu>
+
+<section class="flex --bg w-full h-full">
+    <div class="flex flex-col mx-auto py-24 gap-9 rounded-xl --form-container">
+        <div class="flex justify-center text-3xl">
+            <span class="--title-pj">Project</span>
+            <span class="--title-mtw">MTW</span>
+        </div>
+
+        <form ref={form} class="flex flex-col pt-7 pb-20 px-10 bg-white --form-login">
+            <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-5">
+                    <div class="flex gap-2">
+                        <img src="assets/img/mail.svg" alt="" />
+                        <label htmlFor="" class="font-normal --title-pj">Correo electrónico</label>
+                    </div>
+                    <input type="text" class="py-3 " name="email" autoComplete="username" defaultValue={user?.email}
+                        placeholder="usuario@dydluxury.com" />
+                </div>
+
+                <div class="flex flex-col gap-5">
+                    <div class="flex gap-2">
+                        <img src="assets/img/lock.svg" alt="" />
+                        <label htmlFor="" class="font-normal --title-pj">Clave</label>
+                    </div>
+                    <input type="password" class="py-3 " name="password" autoComplete="current-password"
+                        defaultValue={user?.password} placeholder="Contraseña" />
+                </div>
+            </div>
+
+            <div class="flex w-full justify-end mt-3">
+                <span class="--title-mtw">¿Olvidaste tu contraseña?</span>
+            </div>
+
+            <div class="flex flex-col gap-5 mt-12 w-full">
+                <a to="/" class="flex flex-col w-full">
+                    <button class="border-2 rounded-sm py-3 text-white --form-button-log">Iniciar sesión</button>
+                </a>
+                <a to="/new-user" class="flex flex-col w-full">
+                    <button class="border-2 rounded-sm py-3  --form-button-new">¿Aun no tienes cuenta?
+                        Regístrate</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</section>

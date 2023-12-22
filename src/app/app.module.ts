@@ -14,12 +14,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
 
+import { LoginComponent } from './components/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
 
     MenuComponent,
     IndexComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
