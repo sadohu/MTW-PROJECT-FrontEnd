@@ -1,0 +1,93 @@
+<app-menu></app-menu>
+
+<div style="padding: 2%">
+    <div class="container mat-elevation-z8">
+
+        <div class="row">
+            <mat-toolbar color="primary">
+                <span>Consulta de Clientes</span>
+            </mat-toolbar>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-4">
+                <mat-label>Razón Social, RUC ó Teléfono</mat-label>
+                <input matInput [(ngModel)]="filter" (keyup)="searchRevista()">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="button" (click)="searchRevista()"
+                class="btn btn-primary btn-sm" id="id_btn_filtrar" style="width: 150px">Filtrar</button>
+            <button mat-raised-button color="primary" type="button" (click)="openAddDialog()"
+                class='btn btn-primary btn-sm' style="width: 150px; margin-left: 1rem;">Registrar</button>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-table #table class="mat-cell" [dataSource]="dataSource">
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let item; columns: displayedColumns"></mat-row>
+
+                <ng-container matColumnDef="businessName">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Razón Social</mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.businessName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="idNumber">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Número de RUC</mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.idNumber}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="address">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Dirección Fiscal</mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.address}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tradeName">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Dirección Fiscal</mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.tradeName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="phone">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.phone}}</mat-cell>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="tradeName">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Nombre Comercial</mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.fechaCreacion | date: "dd/MM/yyy"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tipoRevista">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>Tipo de Revista</mat-header-cell>
+                    <mat-cell *matCellDef="let docente">{{ docente.tipoRevista.descripcion }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="pais">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>País</mat-header-cell>
+                    <mat-cell *matCellDef="let docente">{{ docente.pais.nombre }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                    <mat-cell *matCellDef="let item">{{ item.estado == 1 ? "Activo" : "Inactivo" }}</mat-cell>
+                </ng-container> -->
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>&nbsp;</mat-header-cell>
+
+                    <mat-cell *matCellDef="let item;">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="idEstado_{{ item.idRevista }}"
+                                [checked]="item.estado == 1 ? true : false" (change)="updateEstado(item)" />
+                            <label class="custom-control-label" for="idEstado_{{ item.idRevista }}"></label>
+                        </div>
+
+                        <button mat-icon-button color="accent" (click)="openUpdateDialog(item)">
+                            <mat-icon aria-label="Edit">edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="accent" (click)="deleteRevista(item)">
+                            <mat-icon aria-label="Delete">delete</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons="true"></mat-paginator>
+        </div>
+
+    </div>
+</div>

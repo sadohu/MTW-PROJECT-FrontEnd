@@ -11,3 +11,18 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+:root {
+    --bg-blue: #2D3748;
+    --font-blue: #2A4365;
+    --font-lightblue: #63B3ED;
+    --buton-green: #29A39B;
+    --lightblue-100: rgba(235, 248, 255, 1);
+    --lightblue-400: rgba(99, 179, 237, 1);
+    --lightblue-600: rgba(49, 130, 206, 1);
+    --lightblue-900: rgba(42, 67, 101, 1);
+    --gray-100: rgba(247, 250, 252, 1);
+    --gray-200: rgba(237, 242, 247, 1);
+    --blue-100: rgba(42, 67, 101, 1);
+    --blue-200: rgba(255, 255, 255, 1);
+}
