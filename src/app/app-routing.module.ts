@@ -8,7 +8,7 @@ import { CompanyMainComponent } from './components/company-main/company-main.com
 const routes: Routes = [
   { path: 'company', component: CompanyMainComponent },
 
-  { path: '', component: IndexComponent },
+  { path: '', component: LoginComponent },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
