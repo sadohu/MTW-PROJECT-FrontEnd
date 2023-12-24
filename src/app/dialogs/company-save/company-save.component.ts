@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Company } from 'src/app/models/company.model';
 import { User } from 'src/app/models/user.model';
+import { UtilService } from 'src/app/services/util.service';
 import { listClientDocument } from 'src/app/Utils/ModelsDto';
 
 @Component({
@@ -13,28 +15,24 @@ import { listClientDocument } from 'src/app/Utils/ModelsDto';
 export class CompanySaveComponent {
   listDocument = listClientDocument;
   listTipoRevista: any[] = [];
-  revista: any = {
-    nombre: "",
-    frecuencia: "",
-    fechaCreacion: "",
-    pais: {
-      idPais: -1
-    },
-    tipoRevista: {
-      idDataCatalogo: -1
-    }
-  };
+
+  company: Company = {
+    idCompany: 0,
+    businessName: "",
+    idNumber: "",
+    address: "",
+    tradeName: "",
+    phone: "",
+  }
   user: User = {};
 
-  formAddRevista = this.formBuilder.group({
-    validNombre: ['', [Validators.required, Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 ]{3,50}")]],
-    validFrecuencia: ['', [Validators.required, Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 ]{5,50}")]],
-    validFechaCreacion: ['', [Validators.required, this.fechaValidator]],
-    validPais: ['', [Validators.min(1)]],
-    validTipoRevista: ['', [Validators.min(1)]],
+  formSaveCompany = this.formBuilder.group({
+    validIdNumber: ['', [Validators.required, Validators.pattern("[0-9]{11}")]],
+    validBusinessName: ['', [Validators.required, Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 ]{5,50}")]],
+    validAddress: ['', [Validators.required, Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 ]{5,50}")]],
   });
 
-  constructor(public dialogRef: MatDialogRef<CompanySaveComponent>, private formBuilder: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<CompanySaveComponent>, private formBuilder: FormBuilder, private utilService: UtilService) {
     // this.utilService.listaPais().subscribe(
     //   response => this.listPais = response
     // );
@@ -42,6 +40,15 @@ export class CompanySaveComponent {
     //   response => this.listTipoRevista = response
     // );
     // this.usuario.idUsuario = tokenService.getUserId();
+  }
+
+  searchRUC() {
+    const ruc = "20110401796";
+    this.utilService.searchRUC(ruc).subscribe(
+      response => {
+        console.log(response);
+      }
+    )
   }
 
   addRevista() {
@@ -109,7 +116,7 @@ export class CompanySaveComponent {
     //   return false;
     // }
 
-    const frecuencia = this.revista.frecuencia?.trim();
+    // const frecuencia = this.revista.frecuencia?.trim();
     // if (frecuencia!.length < 5) {
     //   this.showErrorMessage("Ingrese una frecuencia válida de al menos cinco caracteres.");
     //   return false;
