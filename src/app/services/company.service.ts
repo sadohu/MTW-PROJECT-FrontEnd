@@ -17,4 +17,8 @@ export class CompanyService {
     const params = new HttpParams().set("q", filter);
     return this.http.get<Company[]>(url + "/search?q=" + filter);
   }
+
+  saveCompany(company: Company): Observable<any> {
+    return this.http.post(url, company);
+  }
 }
