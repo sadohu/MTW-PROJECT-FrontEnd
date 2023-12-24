@@ -14,7 +14,8 @@ import { listClientDocument } from 'src/app/Utils/ModelsDto';
 
 export class CompanySaveComponent {
   listDocument = listClientDocument;
-  listTipoRevista: any[] = [];
+  idNumber: string = "";
+  user: User = {};
 
   company: Company = {
     idCompany: 0,
@@ -24,12 +25,11 @@ export class CompanySaveComponent {
     tradeName: "",
     phone: "",
   }
-  user: User = {};
 
   formSaveCompany = this.formBuilder.group({
     validIdNumber: ['', [Validators.required, Validators.pattern("[0-9]{11}")]],
-    validBusinessName: ['', [Validators.required, Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 ]{5,50}")]],
-    validAddress: ['', [Validators.required, Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 ]{5,50}")]],
+    validBusinessName: ['', [Validators.required, Validators.minLength(5), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
+    validAddress: ['', [Validators.required, Validators.minLength(5), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
   });
 
   constructor(public dialogRef: MatDialogRef<CompanySaveComponent>, private formBuilder: FormBuilder, private utilService: UtilService) {
@@ -43,10 +43,13 @@ export class CompanySaveComponent {
   }
 
   searchRUC() {
-    const ruc = "20110401796";
-    this.utilService.searchRUC(ruc).subscribe(
+    this.utilService.searchRUC(this.idNumber!).subscribe(
       response => {
         console.log(response);
+
+        this.company.idNumber = response.ruc;
+        this.company.businessName = response.razonSocial;
+        this.company.address = response.direccion;
       }
     )
   }
