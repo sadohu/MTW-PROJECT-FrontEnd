@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { CompanySaveComponent } from 'src/app/dialogs/company-save/company-save.component';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company.service';
 
@@ -13,12 +15,12 @@ export class CompanyMainComponent {
   filter: string = "";
   dataSource: any;
 
-  displayedColumns = ["businessName", "idNumber", "address", "tradeName", "phone", "actions"];
+  displayedColumns = ["businessName", "idNumber", "tradeName", "address", "phone", "actions"];
 
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
 
-  constructor(private companyService: CompanyService) {
+  constructor(private companyService: CompanyService, private dialogService: MatDialog) {
     this.refreshTable();
   }
 
@@ -31,7 +33,7 @@ export class CompanyMainComponent {
     );
   }
 
-  searchRevista() {
+  search() {
     this.companyService.getCompanies(this.filter).subscribe(
       response => {
         this.dataSource = new MatTableDataSource<Company>(response);
@@ -40,40 +42,17 @@ export class CompanyMainComponent {
     );
   }
 
-  updateEstado(item: any) {
-    // item.estado = item.estado == 1 ? 0 : 1;
-    // this.revistaService.update(item).subscribe();
-  }
+  newBooking(item: Company) {
 
-  deleteRevista(item: any) {
-    // Swal.fire({
-    //   title: "¿Desea eliminar la revista?",
-    //   text: "Los cambios no podrán ser revertidos",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#3085d6",
-    //   cancelButtonColor: "#d33",
-    //   confirmButtonText: "Sí, eliminar",
-    //   cancelButtonText: "No, cancelar",
-    // }).then(result => {
-    //   if (result.isConfirmed) {
-    //     this.revistaService.delete(item.idRevista || 0).subscribe(
-    //       response => {
-    //         this.refreshTable();
-    //         Swal.fire("Mensaje", response.message, "info");
-    //       }
-    //     );
-    //   }
-    // });
   }
 
   openAddDialog() {
-    // const dialogRef = this.dialogService.open(CrudRevistaAddComponent);
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 1) {
-    //     this.refreshTable();
-    //   }
-    // });
+    const dialogRef = this.dialogService.open(CompanySaveComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.refreshTable();
+      }
+    });
   }
 
   openUpdateDialog(item: any) {

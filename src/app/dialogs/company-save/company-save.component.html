@@ -1,0 +1,74 @@
+<div class="container" style="min-width: 45rem;">
+    <form class="mat-dialog-content" id="formSaveCompanty" [formGroup]="formSaveCompany">
+        <div class="row">
+            <mat-toolbar color="primary">
+                <span>Registra Empresa</span>
+            </mat-toolbar>
+        </div>
+
+        <div class="row flex items-center mt-4" style="margin-top: 1%">
+            <mat-form-field class="col-md-8">
+                <mat-label>RUC</mat-label>
+                <input matInput name="idNumber" [(ngModel)]="idNumber" formControlName="validIdNumber" maxlength="11">
+                <mat-hint style="color:red" *ngIf="formSaveCompany.controls.validIdNumber.touched">
+                    <span *ngIf="formSaveCompany.controls.validIdNumber.hasError('required')">
+                        El RUC es requerido.
+                    </span>
+                    <span *ngIf="formSaveCompany.controls.validIdNumber.hasError('pattern')">
+                        Ingrese 11 dígitos.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+            <div class="col-md-4">
+                <button mat-flat-button color="primary" (click)="searchRUC()"
+                    [disabled]="formSaveCompany.controls.validIdNumber.invalid">Buscar</button>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Razón Social</mat-label>
+                <input matInput name="businessName" [(ngModel)]="company.businessName"
+                    formControlName="validBusinessName" readonly="true">
+                <mat-hint style="color:red" *ngIf="formSaveCompany.controls.validBusinessName.touched">
+                    <span *ngIf="formSaveCompany.controls.validBusinessName.hasError('required')">
+                        El Nombre es requerido.
+                    </span>
+                    <span *ngIf="formSaveCompany.controls.validBusinessName.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Dirección</mat-label>
+                <input matInput name="address" [(ngModel)]="company.address" formControlName="validAddress"
+                    readonly="true">
+                <mat-hint style="color:red" *ngIf="formSaveCompany.controls.validAddress.touched">
+                    <span *ngIf="formSaveCompany.controls.validAddress.hasError('required')">
+                        El Nombre es requerido.
+                    </span>
+                    <span *ngIf="formSaveCompany.controls.validAddress.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="my-4" mat-dialog-actions>
+            <button mat-raised-button type="submit" color="primary" (click)="saveCompany()" [mat-dialog-close]="1"
+                [disabled]="formSaveCompany.invalid">
+                Registra Empresa
+            </button>
+
+            <button mat-button color="primary" (click)="closeDialog()">
+                Salir
+            </button>
+        </div>
+    </form>
+</div>

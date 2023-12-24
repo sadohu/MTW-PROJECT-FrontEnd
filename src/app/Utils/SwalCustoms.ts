@@ -16,6 +16,24 @@ const nyanAlert = (message: string) => {
     );
 };
 
+const error = (message: string) => {
+    Swal.fire({
+        icon: "error",
+        title: "Error !!!",
+        text: message,
+    });
+}
+
+const info = (message: string) => {
+    Swal.fire({
+        icon: "info",
+        title: "Resultado del registro",
+        text: message,
+    });
+}
+
 export const SwalCustoms = {
     nyanAlert,
+    error,
+    info,
 };
