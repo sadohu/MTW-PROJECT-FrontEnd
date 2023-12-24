@@ -1,0 +1,68 @@
+<div class="container" style="min-width: 45rem;">
+    <form class="mat-dialog-content" id="formSaveCompanty" [formGroup]="formAddRevista">
+        <div class="row">
+            <mat-toolbar color="primary">
+                <span>Registra Empresa</span>
+            </mat-toolbar>
+        </div>
+
+        <div class="row" style="margin-top: 1%">
+            <mat-form-field class="col-md-12">
+                <mat-label>RUC</mat-label>
+                <input matInput name="frecuencia" [(ngModel)]="revista.frecuencia" formControlName="validFrecuencia"
+                    maxlength="11">
+                <mat-hint style="color:red" *ngIf="formAddRevista.controls.validFrecuencia.touched">
+                    <span *ngIf="formAddRevista.controls.validFrecuencia.hasError('required')">
+                        La frecuencia es requerida (Ej: Diario, Semanal cada Viernes, Quincenal, etc.).
+                    </span>
+                    <span *ngIf="formAddRevista.controls.validFrecuencia.hasError('pattern')">
+                        Ingrese de 5 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Razón Social</mat-label>
+                <input matInput name="nombre" [(ngModel)]="revista.nombre" formControlName="validNombre" maxlength="50">
+                <mat-hint style="color:red" *ngIf="formAddRevista.controls.validNombre.touched">
+                    <span *ngIf="formAddRevista.controls.validNombre.hasError('required')">
+                        El Nombre es requerido.
+                    </span>
+                    <span *ngIf="formAddRevista.controls.validNombre.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-12">
+                <mat-label>Dirección</mat-label>
+                <input matInput name="nombre" [(ngModel)]="revista.nombre" formControlName="validNombre" maxlength="50">
+                <mat-hint style="color:red" *ngIf="formAddRevista.controls.validNombre.touched">
+                    <span *ngIf="formAddRevista.controls.validNombre.hasError('required')">
+                        El Nombre es requerido.
+                    </span>
+                    <span *ngIf="formAddRevista.controls.validNombre.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="my-4" mat-dialog-actions>
+            <button mat-raised-button type="submit" color="primary" (click)="addRevista()" [mat-dialog-close]="1"
+                [disabled]="formAddRevista.invalid">
+                Registra Empresa
+            </button>
+
+            <button mat-button color="primary" (click)="closeDialog()">
+                Salir
+            </button>
+        </div>
+    </form>
+</div>

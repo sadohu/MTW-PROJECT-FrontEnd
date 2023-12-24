@@ -15,15 +15,22 @@ import { IndexComponent } from './index/index.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { CompanyMainComponent } from './components/company-main/company-main.component';
+import { CompanySaveComponent } from './dialogs/company-save/company-save.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
+    /* Utils Components */
     MenuComponent,
     IndexComponent,
     LoginComponent,
+
+    /* Main Components */
     CompanyMainComponent,
+
+    /* Dialog Components */
+    CompanySaveComponent,
   ],
   imports: [
     BrowserModule,
