@@ -3,8 +3,10 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Company } from 'src/app/models/company.model';
 import { User } from 'src/app/models/user.model';
+import { CompanyService } from 'src/app/services/company.service';
 import { UtilService } from 'src/app/services/util.service';
 import { listClientDocument } from 'src/app/Utils/ModelsDto';
+import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 
 @Component({
   selector: 'app-company-save',
@@ -32,7 +34,7 @@ export class CompanySaveComponent {
     validAddress: ['', [Validators.required, Validators.minLength(5), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
   });
 
-  constructor(public dialogRef: MatDialogRef<CompanySaveComponent>, private formBuilder: FormBuilder, private utilService: UtilService) {
+  constructor(public dialogRef: MatDialogRef<CompanySaveComponent>, private formBuilder: FormBuilder, private utilService: UtilService, private companyService: CompanyService) {
     // this.utilService.listaPais().subscribe(
     //   response => this.listPais = response
     // );
@@ -43,9 +45,16 @@ export class CompanySaveComponent {
   }
 
   searchRUC() {
+    this.setCompanyToNull();
+
     this.utilService.searchRUC(this.idNumber!).subscribe(
       response => {
         console.log(response);
+
+        if (response.success == false) {
+          SwalCustoms.nyanAlert("RUC no encontrado ó no se encuentra activo");
+          return;
+        }
 
         this.company.idNumber = response.ruc;
         this.company.businessName = response.razonSocial;
@@ -54,102 +63,58 @@ export class CompanySaveComponent {
     )
   }
 
-  addRevista() {
-    // const valid = this.validSpacesOnInputs();
-    // if (valid) {
-    //   this.revista.usuarioRegistro = this.usuario;
-    //   this.revista.usuarioActualiza = this.usuario;
-    //   this.revistaService.insert(this.revista).subscribe(
-    //     item => {
-    //       Swal.fire({
-    //         icon: "info",
-    //         title: "Resultado del registro",
-    //         text: item.message,
-    //       });
-    //       this.setRevistaToNull();
-    //     }
-    //   );
-    // }
+  saveCompany() {
+    const valid = this.validSpacesOnInputs();
+    if (valid) {
+      // this.revista.usuarioRegistro = this.usuario;
+      // this.revista.usuarioActualiza = this.usuario;
+      this.companyService.saveCompany(this.company).subscribe(
+        response => {
+          SwalCustoms.info(response.message)
+          this.setCompanyToNull();
+        }
+      );
+    }
   }
 
   closeDialog() {
-    // this.dialogRef.close();
-    // this.setRevistaToNull();
-  }
-
-  private fechaValidator(control: FormControl) {
-    // const fechaString = control.value;
-
-    // if (!fechaString) {
-    //   return { required: true };
-    // }
-
-    // if (fechaString.length > 10) {
-    //   return { invalidFormat: true };
-    // }
-
-    // const fechaActual = new Date();
-    // const [year, month, day] = fechaString.split('-').map(Number);
-
-    // if (day > 31 || month > 12) {
-    //   return { invalidDate: true };
-    // }
-
-    // if (year < 1000) {
-    //   return { invalidYear: true };
-    // }
-
-    // const fecha = new Date(year, month - 1, day);
-
-    // if (isNaN(fecha.getTime())) {
-    //   return { invalidDate: true };
-    // }
-
-    // if (fecha > fechaActual) {
-    //   return { futureDate: true };
-    // }
-
-    // return null;
+    this.dialogRef.close();
+    this.setCompanyToNull();
   }
 
   private validSpacesOnInputs() {
-    // const nombre = this.revista.nombre?.trim();
-    // if (nombre!.length < 3) {
-    //   this.showErrorMessage("Ingrese un nombre válido de al menos tres caracteres.");
-    //   return false;
-    // }
+    const idNumber = this.company.idNumber?.trim();
+    if (idNumber!.length != 11) {
+      SwalCustoms.error("Ingrese un RUC válido.");
+      return false;
+    }
 
-    // const frecuencia = this.revista.frecuencia?.trim();
-    // if (frecuencia!.length < 5) {
-    //   this.showErrorMessage("Ingrese una frecuencia válida de al menos cinco caracteres.");
-    //   return false;
-    // }
-    // this.revista.nombre = nombre;
-    // this.revista.frecuencia = frecuencia;
-    // return true;
+    const businessName = this.company.businessName?.trim();
+    if (businessName!.length < 3) {
+      SwalCustoms.error("Ingrese una Razón Social válida.");
+      return false;
+    }
+
+    const address = this.company.address?.trim();
+    if (address!.length < 5) {
+      SwalCustoms.error("Ingrese una dirección válida.");
+      return false;
+    }
+
+    this.company.idNumber = idNumber;
+    this.company.businessName = businessName;
+    this.company.address = address;
+    return true;
   }
 
-  private showErrorMessage(message: string) {
-    // Swal.fire({
-    //   icon: "error",
-    //   title: "Error del formulario!!!",
-    //   text: message,
-    // });
-  }
-
-  private setRevistaToNull() {
-    // this.revista = {
-    //   idRevista: 0,
-    //   nombre: "",
-    //   frecuencia: "",
-    //   fechaCreacion: "",
-    //   tipoRevista: {
-    //     idDataCatalogo: -1
-    //   },
-    //   pais: {
-    //     idPais: -1,
-    //   },
-    //   estado: 0,
-    // };
+  private setCompanyToNull() {
+    this.company = {
+      idCompany: 0,
+      businessName: "",
+      idNumber: "",
+      address: "",
+      tradeName: "",
+      phone: "",
+    }
   }
 }
