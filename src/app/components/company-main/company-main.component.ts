@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +12,7 @@ import { CompanyService } from 'src/app/services/company.service';
   templateUrl: './company-main.component.html',
   styleUrls: ['./company-main.component.css'],
 })
+
 export class CompanyMainComponent {
   filter: string = "";
   dataSource: any;
@@ -20,7 +22,7 @@ export class CompanyMainComponent {
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
 
-  constructor(private companyService: CompanyService, private dialogService: MatDialog) {
+  constructor(private companyService: CompanyService, private dialogService: MatDialog, private router: Router) {
     this.refreshTable();
   }
 
@@ -43,25 +45,17 @@ export class CompanyMainComponent {
   }
 
   newBooking(item: Company) {
-
+    this.router.navigate(['new-booking', item.idCompany]);
   }
 
   openAddDialog() {
     const dialogRef = this.dialogService.open(CompanySaveComponent);
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         this.refreshTable();
       }
     });
-  }
-
-  openUpdateDialog(item: any) {
-    // const dialogRef = this.dialogService.open(CrudRevistaUpdateComponent, { data: item });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 1) {
-    //     this.refreshTable();
-    //   }
-    // });
   }
 
 }
