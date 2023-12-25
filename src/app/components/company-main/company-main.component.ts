@@ -11,6 +11,7 @@ import { CompanyService } from 'src/app/services/company.service';
   templateUrl: './company-main.component.html',
   styleUrls: ['./company-main.component.css'],
 })
+
 export class CompanyMainComponent {
   filter: string = "";
   dataSource: any;
@@ -48,20 +49,12 @@ export class CompanyMainComponent {
 
   openAddDialog() {
     const dialogRef = this.dialogService.open(CompanySaveComponent);
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         this.refreshTable();
       }
     });
-  }
-
-  openUpdateDialog(item: any) {
-    // const dialogRef = this.dialogService.open(CrudRevistaUpdateComponent, { data: item });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 1) {
-    //     this.refreshTable();
-    //   }
-    // });
   }
 
 }

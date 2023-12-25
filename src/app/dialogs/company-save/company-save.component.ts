@@ -49,7 +49,7 @@ export class CompanySaveComponent {
 
     this.utilService.searchRUC(this.idNumber!).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
 
         if (response.success == false) {
           SwalCustoms.nyanAlert("RUC no encontrado ó no se encuentra activo");
