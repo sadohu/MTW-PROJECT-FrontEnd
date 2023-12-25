@@ -18,6 +18,10 @@ export class CompanyService {
     return this.http.get<Company[]>(url + "/search?q=" + filter);
   }
 
+  getById(id: string): Observable<Company> {
+    return this.http.get<Company>(url + "/" + id);
+  }
+
   saveCompany(company: Company): Observable<any> {
     return this.http.post(url, company);
   }
