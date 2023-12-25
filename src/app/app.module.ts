@@ -16,6 +16,7 @@ import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './components/login/login.component';
 import { CompanyMainComponent } from './components/company-main/company-main.component';
 import { CompanySaveComponent } from './dialogs/company-save/company-save.component';
+import { BookingSaveComponent } from './components/booking-save/booking-save.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CompanySaveComponent } from './dialogs/company-save/company-save.compon
 
     /* Main Components */
     CompanyMainComponent,
+    BookingSaveComponent,
 
     /* Dialog Components */
     CompanySaveComponent,

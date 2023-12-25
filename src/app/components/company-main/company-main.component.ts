@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -21,7 +22,7 @@ export class CompanyMainComponent {
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
 
-  constructor(private companyService: CompanyService, private dialogService: MatDialog) {
+  constructor(private companyService: CompanyService, private dialogService: MatDialog, private router: Router) {
     this.refreshTable();
   }
 
@@ -44,7 +45,7 @@ export class CompanyMainComponent {
   }
 
   newBooking(item: Company) {
-
+    this.router.navigate(['new-booking', item.idCompany]);
   }
 
   openAddDialog() {
