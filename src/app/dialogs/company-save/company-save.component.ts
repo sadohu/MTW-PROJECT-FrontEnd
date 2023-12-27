@@ -72,13 +72,14 @@ export class CompanySaveComponent {
         response => {
           SwalCustoms.info(response.message)
           this.setCompanyToNull();
+          this.dialogRef.close(true);
         }
       );
     }
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     this.setCompanyToNull();
   }
 

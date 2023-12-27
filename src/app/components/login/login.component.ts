@@ -15,7 +15,7 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) { }
 
   loginUser() {
-    // Validation
+    // TODO: Validation
     console.log(this.user);
 
     // Call service

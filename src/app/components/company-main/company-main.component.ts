@@ -52,7 +52,7 @@ export class CompanyMainComponent {
     const dialogRef = this.dialogService.open(CompanySaveComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
+      if (result) {
         this.refreshTable();
       }
     });
