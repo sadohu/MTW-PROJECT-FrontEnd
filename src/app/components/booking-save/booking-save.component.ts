@@ -4,6 +4,7 @@ import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 import { Area } from 'src/app/models/area.model';
 import { Booking } from 'src/app/models/booking.model';
 import { Company } from 'src/app/models/company.model';
+import { Currency } from 'src/app/models/currency.model';
 import { Driver } from 'src/app/models/driver.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
 import { CompanyService } from 'src/app/services/company.service';
@@ -18,15 +19,17 @@ export class BookingSaveComponent implements OnInit {
   ubigeo: Ubigeo[] = [];
   drivers: Driver[] = [];
   areas: Area[] = [];
+  currencies: Currency[] = [];
 
 
   company: Company = {};
   booking: Booking = {
-    passenger: {},
-    area: {},
     company: {},
+    area: {},
+    passenger: {},
     ubigeoPickUp: {},
     ubigeoDestination: {},
+    currency: {},
     driver: {},
     bill: {}
   };
@@ -60,6 +63,11 @@ export class BookingSaveComponent implements OnInit {
         }
       }
     });
+  }
+
+  save() {
+    console.log("this.booking", this.booking);
+
   }
 
 }
