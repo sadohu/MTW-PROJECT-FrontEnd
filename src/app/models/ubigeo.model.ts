@@ -1,8 +1,8 @@
 export class Ubigeo {
     idUbigeo?: number;
-    departamento?: string;
-    provincia?: string;
-    distrito?: string;
+    department?: string;
+    province?: string;
+    district?: string;
     name?: string;
     ubigeo?: string;
 }
