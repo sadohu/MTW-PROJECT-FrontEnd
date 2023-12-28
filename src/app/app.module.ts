@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CompanyMainComponent } from './components/company-main/company-main.component';
 import { CompanySaveComponent } from './dialogs/company-save/company-save.component';
 import { BookingSaveComponent } from './components/booking-save/booking-save.component';
+import { DriverMainComponent } from './components/driver-main/driver-main.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BookingSaveComponent } from './components/booking-save/booking-save.com
     /* Main Components */
     CompanyMainComponent,
     BookingSaveComponent,
+    DriverMainComponent,
 
     /* Dialog Components */
     CompanySaveComponent,
