@@ -4,12 +4,144 @@
     <div class="container mat-elevation-z8">
 
 
-        <form class="mat-dialog-content" id="formBookingSave">
+        <form class="mat-dialog-content pb-10" id="formBookingSave">
 
-            <div class="row">
+            <div class="row ">
                 <mat-toolbar color="primary">
-                    <span>Datos de Reserva</span>
+                    <span>Registrar Nueva Reserva</span>
                 </mat-toolbar>
+            </div>
+
+
+            <!-- Datos de Reserva -->
+            <div class="row ">
+                <span>Datos de Reserva</span>
+            </div>
+            <div class="row justify-content-md-center" style="margin-top: 3%">
+
+                <mat-form-field class="col-md-3">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput type="date" name="date" [(ngModel)]="booking.date">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-3">
+                    <mat-label>Hora</mat-label>
+                    <input matInput type="time" name="time" [(ngModel)]="booking.time">
+                </mat-form-field>
+            </div>
+
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-4">
+                    <mat-label>Nombre Pasajero</mat-label>
+                    <input matInput name="name" [(ngModel)]="booking.passenger!.names">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Apellido Pasajero</mat-label>
+                    <input matInput name="lastname" [(ngModel)]="booking.passenger!.lastNames">
+                </mat-form-field>
+            </div>
+
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-6">
+                    <mat-label>Dirección de Origen</mat-label>
+                    <input matInput name="pickUp" [(ngModel)]="booking.pickUp">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-2">
+                    <mat-label>Distrito de Origen</mat-label>
+                    <mat-select name="ubigeoPickUp" [(ngModel)]="booking.ubigeoPickUp!.idUbigeo">
+                        <mat-option value="-1"> [Seleccione el Distrito] </mat-option>
+                        <mat-option *ngFor="let item of ubigeo" [value]="item.idUbigeo">
+                            {{item.district}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-6">
+                    <mat-label>Dirección de Destino</mat-label>
+                    <input matInput name="destination" [(ngModel)]="booking.destination">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-2">
+                    <mat-label>Distrito de Destino</mat-label>
+                    <mat-select name="ubigeoDestination" [(ngModel)]="booking.ubigeoDestination!.idUbigeo">
+                        <mat-option value="-1"> [Seleccione el Distrito] </mat-option>
+                        <mat-option *ngFor="let item of ubigeo" [value]="item.idUbigeo">
+                            {{item.district}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-2">
+                    <mat-label>Moneda</mat-label>
+                    <mat-select name="ubigeoDestination" [(ngModel)]="booking.currency!.idCurrency" [value]="1">
+                        <mat-option value="-1"> [Seleccione la Modena] </mat-option>
+                        <mat-option *ngFor="let item of currencies" [value]="item.idCurrency">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-2">
+                    <mat-label>Tarifa</mat-label>
+                    <input matInput name="price" [(ngModel)]="booking.price">
+                </mat-form-field>
+            </div>
+
+
+            <!-- Conductor -->
+            <div class="row ">
+                <span>Conductor</span>
+            </div>
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-6">
+                    <mat-label>Nombre de Conductor</mat-label>
+                    <input matInput name="driver" [(ngModel)]="booking.driver!.idDriver"
+                        value="{{booking.driver!.names + ' ' + booking.driver!.lastNames}}">
+                </mat-form-field>
+                <div class="col-md-2">
+                    <button mat-raised-button color="primary" type="button"
+                        class="btn btn-primary btn-sm">Buscar</button>
+                </div>
+            </div>
+
+
+            <!-- Datos de Facturación -->
+            <div class="row ">
+                <span>Datos de Facturación</span>
+            </div>
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-6">
+                    <mat-label>Solicitante de Reserva</mat-label>
+                    <input matInput name="applicant" [(ngModel)]="booking.applicant">
+                </mat-form-field>
+                <div class="col-md-2">
+                    <button mat-raised-button color="primary" type="button"
+                        class="btn btn-primary btn-sm">Buscar</button>
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center">
+                <mat-form-field class="col-md-6">
+                    <mat-label>Área Asignada</mat-label>
+                    <mat-select name="area" [(ngModel)]="booking.area!.idArea">
+                        <mat-option value="-1"> [Seleccione el Área] </mat-option>
+                        <mat-option *ngFor="let item of areas" [value]="item.idArea">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="flex justify-center">
+                <button mat-raised-button color="primary" type="button" class="btn btn-primary btn-sm px-20"
+                    (click)="save()">Registrar
+                    Reserva</button>
             </div>
 
         </form>

@@ -9,14 +9,14 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }
 
 :root {
     --bg-blue: #2D3748;
     --font-blue: #2A4365;
     --font-lightblue: #63B3ED;
-    --buton-green: #29A39B;
+    --button-green: #29A39B;
     --lightblue-100: rgba(235, 248, 255, 1);
     --lightblue-400: rgba(99, 179, 237, 1);
     --lightblue-600: rgba(49, 130, 206, 1);
@@ -25,4 +25,52 @@ body {
     --gray-200: rgba(237, 242, 247, 1);
     --blue-100: rgba(42, 67, 101, 1);
     --blue-200: rgba(255, 255, 255, 1);
+}
+
+.rc-bg-blue {
+    background-color: var(--bg-blue) !important;
+}
+
+.rc-font-blue {
+    color: var(--font-blue) !important;
+}
+
+.rc-font-lightblue {
+    color: var(--font-lightblue) !important;
+}
+
+.rc-button-green {
+    background-color: var(--button-green) !important;
+}
+
+.rc-bg-lightblue-100 {
+    background-color: var(--lightblue-100) !important;
+}
+
+.rc-bg-lightblue-400 {
+    background-color: var(--lightblue-400) !important;
+}
+
+.rc-bg-lightblue-600 {
+    background-color: var(--lightblue-600) !important;
+}
+
+.rc-bg-lightblue-900 {
+    background-color: var(--lightblue-900) !important;
+}
+
+.rc-bg-gray-100 {
+    background-color: var(--gray-100) !important;
+}
+
+.rc-bg-gray-200 {
+    background-color: var(--gray-200) !important;
+}
+
+.rc-bg-blue-100 {
+    background-color: var(--blue-100) !important;
+}
+
+.rc-bg-blue-200 {
+    background-color: var(--blue-200) !important;
 }

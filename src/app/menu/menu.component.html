@@ -1,79 +1,84 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
-    <a class="navbar-brand" href="#">MTW PROJECT</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<mat-drawer-container autosize>
+    <mat-drawer #drawer class="px-5 py-10" mode="side">
+        <div class="flex flex-col justify-center">
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+            <!-- 1st menu section-->
+            <div class="flex justify-center object-contain pb-6">
+                <span class="text-lg rc-font-lightblue">Sistema</span>
+            </div>
+            <div class="flex flex-col" *ngFor="let item of mainMenu">
+                <button mat-button>
+                    <a href="{{item.url}}">{{item.name}}</a>
+                </button>
 
-            <!-- <li class="nav-item " *ngIf="!isLogged"> -->
-            <li class="nav-item ">
-                <a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
-            </li>
-            <!-- <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()"> -->
-            <li class="nav-item" (click)="onLogOut()">
-                <a class="nav-link" style="cursor: pointer;"><i class="fas fa-door-open"></i> Cerrar Sesión</a>
-            </li>
+                <button mat-button [matMenuTriggerFor]="animals">Menú Principal</button>
+                <mat-menu #animals="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
+                    <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
+                </mat-menu>
 
+                <mat-menu #vertebrates="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="fish">Fishes</button>
+                    <button mat-menu-item [matMenuTriggerFor]="amphibians">Amphibians</button>
+                    <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>
+                    <button mat-menu-item>Birds</button>
+                    <button mat-menu-item>Mammals</button>
+                </mat-menu>
 
-            <!-- <li class="nav-item dropdown" *ngIf="isLogged">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-expanded="false">
-                    Registros (PC01)
-                </a>
+                <mat-menu #invertebrates="matMenu">
+                    <button mat-menu-item>Insects</button>
+                    <button mat-menu-item>Molluscs</button>
+                    <button mat-menu-item>Crustaceans</button>
+                    <button mat-menu-item>Corals</button>
+                    <button mat-menu-item>Arachnids</button>
+                    <button mat-menu-item>Velvet worms</button>
+                    <button mat-menu-item>Horseshoe crabs</button>
+                </mat-menu>
 
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a *ngFor="let item of opcRegistro" routerLink="/{{ item.ruta }}" class="dropdown-item">
-                        {{ item.nombre }}
-                    </a>
-                </div>
-            </li>
+                <mat-menu #fish="matMenu">
+                    <button mat-menu-item>Baikal oilfish</button>
+                    <button mat-menu-item>Bala shark</button>
+                    <button mat-menu-item>Ballan wrasse</button>
+                    <button mat-menu-item>Bamboo shark</button>
+                    <button mat-menu-item>Banded killifish</button>
+                </mat-menu>
 
+                <mat-menu #amphibians="matMenu">
+                    <button mat-menu-item>Sonoran desert toad</button>
+                    <button mat-menu-item>Western toad</button>
+                    <button mat-menu-item>Arroyo toad</button>
+                    <button mat-menu-item>Yosemite toad</button>
+                </mat-menu>
 
-            <li class="nav-item dropdown" *ngIf="isLogged">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-expanded="false">
-                    CRUD (PC02)
-                </a>
+                <mat-menu #reptiles="matMenu">
+                    <button mat-menu-item>Banded Day Gecko</button>
+                    <button mat-menu-item>Banded Gila Monster</button>
+                    <button mat-menu-item>Black Tree Monitor</button>
+                    <button mat-menu-item>Blue Spiny Lizard</button>
+                    <button mat-menu-item disabled>Velociraptor</button>
+                </mat-menu>
+            </div>
 
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a *ngFor="let item of opcCRUD" routerLink="/{{ item.ruta }}" class="dropdown-item">
-                        {{ item.nombre }}
-                    </a>
-                </div>
-            </li>
+        </div>
 
+    </mat-drawer>
 
-            <li class="nav-item dropdown" *ngIf="isLogged">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-expanded="false">
-                    Consultas (PC03)
-                </a>
+    <!-- toolbar -->
+    <mat-toolbar class="rc-blue-100">
+        <button type="button" mat-button (click)="toggleDrawer()">
+            <mat-icon aria-hidden="false" aria-label="menu icon"
+                [fontIcon]="drawer?.opened ? 'menu_open' : 'menu'"></mat-icon>
+        </button>
+        <a href="/index">Mortal Team Work Project</a>
+        <span class="flex-auto"></span>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+        </button>
+    </mat-toolbar>
 
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a *ngFor="let item of opcConsulta" routerLink="/{{ item.ruta }}" class="dropdown-item">
-                        {{ item.nombre }}
-                    </a>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown" *ngIf="isLogged">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-expanded="false">
-                    Transacciones (AP)
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a *ngFor="let item of opcTransacciones" routerLink="/{{ item.ruta }}" class="dropdown-item">
-                        {{ item.nombre }}
-                    </a>
-                </div>
-            </li> -->
-
-        </ul>
-
-
-    </div>
-</nav>
+    <!-- Contenido dinámico utilizando ng-content -->
+    <ng-content select="[drawer-content]"></ng-content>
+</mat-drawer-container>

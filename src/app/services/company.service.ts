@@ -15,11 +15,11 @@ export class CompanyService {
 
   getCompanies(filter: string): Observable<Company[]> {
     const params = new HttpParams().set("q", filter);
-    return this.http.get<Company[]>(url + "/search?q=" + filter);
+    return this.http.get<Company[]>(`${url}/search`, { params });
   }
 
   getById(id: string): Observable<Company> {
-    return this.http.get<Company>(url + "/" + id);
+    return this.http.get<Company>(`${url}/${id}`);
   }
 
   saveCompany(company: Company): Observable<any> {

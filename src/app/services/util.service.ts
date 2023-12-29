@@ -17,6 +17,6 @@ export class UtilService {
 
   searchRUC(ruc: string): Observable<any> {
     const params = new HttpParams().set("token", token);
-    return this.http.get<any>(urlRUC + '/' + ruc, { params });
+    return this.http.get<any>(`${urlRUC}/${ruc}`, { params });
   }
 }
