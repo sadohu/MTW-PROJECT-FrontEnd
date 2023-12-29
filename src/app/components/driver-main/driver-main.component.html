@@ -15,7 +15,7 @@
                         <input matInput [(ngModel)]="filter" (keyup)="applyFilter($event)" #input>
                     </mat-form-field>
 
-                    <button mat-raised-button color="primary" type="button" (click)="openSaveDialog(0)"
+                    <button mat-raised-button color="primary" type="button" (click)="openSaveDialog(newDriver)"
                         class='btn btn-primary btn-sm w-40 ml-4'>Registrar</button>
                 </div>
 
@@ -89,11 +89,11 @@
                                     <label class="custom-control-label" for="idEstado_{{ item.idRevista }}"></label>
                                 </div> -->
 
-                                <button mat-icon-button color="accent" (click)="openSaveDialog(item.idDriver)">
+                                <button mat-icon-button color="accent" (click)="openSaveDialog(item)">
                                     <mat-icon aria-label="Edit">edit</mat-icon>
                                 </button>
 
-                                <button mat-icon-button color="accent" (click)="deleteRevista(item)">
+                                <button mat-icon-button color="accent" (click)="deleteDriver(item)">
                                     <mat-icon aria-label="Delete">delete</mat-icon>
                                 </button>
                             </mat-cell>

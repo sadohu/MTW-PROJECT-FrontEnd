@@ -18,6 +18,7 @@ import { DriverService } from 'src/app/services/driver.service';
 export class DriverMainComponent {
   filter: string = "";
   dataSource: any;
+  newDriver: Driver = {};
 
   displayedColumns = ["names", "lastNames", "idNumber", "phone", "brand", "model", "carPlate", "year", "color", "actions"];
 
@@ -51,12 +52,8 @@ export class DriverMainComponent {
     }
   }
 
-  newBooking(item: Driver) {
-
-  }
-
-  openSaveDialog(id: number) {
-    const dialogRef = this.dialogService.open(DriverSaveComponent, { data: id });
+  openSaveDialog(driver: Driver) {
+    const dialogRef = this.dialogService.open(DriverSaveComponent, { data: driver });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -65,11 +62,7 @@ export class DriverMainComponent {
     });
   }
 
-  openUpdateDialog(item: any) {
-
-  }
-
-  deleteRevista(item: any) {
+  deleteDriver(item: Driver) {
 
   }
 }
