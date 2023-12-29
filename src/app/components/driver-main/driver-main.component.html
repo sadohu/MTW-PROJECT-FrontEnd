@@ -1,1 +1,99 @@
-<app-menu></app-menu>
+<app-menu>
+    <ng-container drawer-content>
+        <section class="p-8">
+            <div class="container mat-elevation-z8">
+
+                <div class="row">
+                    <mat-toolbar color="primary">
+                        <span>Consulta de Conductores</span>
+                    </mat-toolbar>
+                </div>
+
+                <div class="row" class="pt-8">
+                    <mat-form-field class="col-md-4">
+                        <mat-label>Nombres, Apellidos, DNI ó Teléfono</mat-label>
+                        <input matInput [(ngModel)]="filter" (keyup)="search()">
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" type="button" (click)="openAddDialog()"
+                        class='btn btn-primary btn-sm w-40 ml-4'>Registrar</button>
+                </div>
+
+                <div class="row" class=" pt-8">
+                    <mat-table [dataSource]="dataSource">
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+                        <ng-container matColumnDef="names">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Nombres</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.names}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="lastNames">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Apellidos</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.lastNames}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="idNumber">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">DNI</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.idNumber}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="phone">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Teléfono</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.phone}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="brand">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Vehículo</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.brand}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="model">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Modelo</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.model}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="carPlate">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Placa</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.carPlate}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="year">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Año</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.year}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="color">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">Color</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.color}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <mat-header-cell *matHeaderCellDef class="justify-center">&nbsp;</mat-header-cell>
+
+                            <mat-cell *matCellDef="let item;">
+                                <!-- <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" role="switch"
+                                        id="idEstado_{{ item.idRevista }}" [checked]="item.estado == 1 ? true : false"
+                                        (change)="updateState(item)" />
+                                    <label class="custom-control-label" for="idEstado_{{ item.idRevista }}"></label>
+                                </div> -->
+
+                                <button mat-icon-button color="accent" (click)="openUpdateDialog(item)">
+                                    <mat-icon aria-label="Edit">edit</mat-icon>
+                                </button>
+
+                                <button mat-icon-button color="accent" (click)="deleteRevista(item)">
+                                    <mat-icon aria-label="Delete">delete</mat-icon>
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                    </mat-table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons="true"></mat-paginator>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+</app-menu>
