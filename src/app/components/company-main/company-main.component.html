@@ -1,71 +1,73 @@
-<app-menu></app-menu>
+<app-menu>
+    <ng-container drawer-content>
+        <section style="padding: 2%">
+            <div class="container mat-elevation-z8">
 
-<div style="padding: 2%">
-    <div class="container mat-elevation-z8">
+                <div class="row">
+                    <mat-toolbar color="primary">
+                        <span>Consulta de Clientes</span>
+                    </mat-toolbar>
+                </div>
 
-        <div class="row">
-            <mat-toolbar color="primary">
-                <span>Consulta de Clientes</span>
-            </mat-toolbar>
-        </div>
+                <div class="row" style="margin-top: 3%">
+                    <mat-form-field class="col-md-4">
+                        <mat-label>Razón Social, RUC ó Teléfono</mat-label>
+                        <input matInput [(ngModel)]="filter" (keyup)="search()">
+                    </mat-form-field>
 
-        <div class="row" style="margin-top: 3%">
-            <mat-form-field class="col-md-4">
-                <mat-label>Razón Social, RUC ó Teléfono</mat-label>
-                <input matInput [(ngModel)]="filter" (keyup)="search()">
-            </mat-form-field>
+                    <button mat-raised-button color="primary" type="button" (click)="openAddDialog()"
+                        class='btn btn-primary btn-sm' style="width: 150px; margin-left: 1rem;">Registrar</button>
+                </div>
 
-            <button mat-raised-button color="primary" type="button" (click)="openAddDialog()"
-                class='btn btn-primary btn-sm' style="width: 150px; margin-left: 1rem;">Registrar</button>
-        </div>
+                <div class="row" style="margin-top: 3%">
+                    <mat-table #table class="mat-cell" [dataSource]="dataSource">
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let item; columns: displayedColumns"></mat-row>
 
-        <div class="row" style="margin-top: 3%">
-            <mat-table #table class="mat-cell" [dataSource]="dataSource">
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let item; columns: displayedColumns"></mat-row>
+                        <ng-container matColumnDef="businessName">
+                            <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Razón
+                                Social</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.businessName}}</mat-cell>
+                        </ng-container>
 
-                <ng-container matColumnDef="businessName">
-                    <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Razón
-                        Social</mat-header-cell>
-                    <mat-cell class="justify-center" *matCellDef="let item"> {{item.businessName}}</mat-cell>
-                </ng-container>
+                        <ng-container matColumnDef="idNumber">
+                            <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Número de
+                                RUC</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.idNumber}}</mat-cell>
+                        </ng-container>
 
-                <ng-container matColumnDef="idNumber">
-                    <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Número de
-                        RUC</mat-header-cell>
-                    <mat-cell class="justify-center" *matCellDef="let item"> {{item.idNumber}}</mat-cell>
-                </ng-container>
+                        <ng-container matColumnDef="tradeName">
+                            <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Nombre
+                                Comercial</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.tradeName}}</mat-cell>
+                        </ng-container>
 
-                <ng-container matColumnDef="tradeName">
-                    <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Nombre
-                        Comercial</mat-header-cell>
-                    <mat-cell class="justify-center" *matCellDef="let item"> {{item.tradeName}}</mat-cell>
-                </ng-container>
+                        <ng-container matColumnDef="address">
+                            <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Dirección
+                                Fiscal</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.address}}</mat-cell>
+                        </ng-container>
 
-                <ng-container matColumnDef="address">
-                    <mat-header-cell math-header-cell *matHeaderCellDef class="justify-center">Dirección
-                        Fiscal</mat-header-cell>
-                    <mat-cell class="justify-center" *matCellDef="let item"> {{item.address}}</mat-cell>
-                </ng-container>
+                        <ng-container matColumnDef="phone">
+                            <mat-header-cell math-header-cell *matHeaderCellDef
+                                class="justify-center">Teléfono</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item"> {{item.phone}}</mat-cell>
+                        </ng-container>
 
-                <ng-container matColumnDef="phone">
-                    <mat-header-cell math-header-cell *matHeaderCellDef
-                        class="justify-center">Teléfono</mat-header-cell>
-                    <mat-cell class="justify-center" *matCellDef="let item"> {{item.phone}}</mat-cell>
-                </ng-container>
+                        <ng-container matColumnDef="actions">
+                            <mat-header-cell mat-header-cell *matHeaderCellDef class="justify-center">Nueva
+                                reserva</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item;">
+                                <button mat-icon-button color="accent" (click)="newBooking(item)">
+                                    <mat-icon>local_taxi</mat-icon>
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                    </mat-table>
 
-                <ng-container matColumnDef="actions">
-                    <mat-header-cell mat-header-cell *matHeaderCellDef class="justify-center">Nueva
-                        reserva</mat-header-cell>
-                    <mat-cell class="justify-center" *matCellDef="let item;">
-                        <button mat-icon-button color="accent" (click)="newBooking(item)">
-                            <mat-icon>local_taxi</mat-icon>
-                        </button>
-                    </mat-cell>
-                </ng-container>
-            </mat-table>
-
-            <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons="true"></mat-paginator>
-        </div>
-    </div>
-</div>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons="true"></mat-paginator>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+</app-menu>
