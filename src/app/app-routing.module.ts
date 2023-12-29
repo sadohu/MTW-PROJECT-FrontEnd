@@ -5,10 +5,12 @@ import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './components/login/login.component';
 import { CompanyMainComponent } from './components/company-main/company-main.component';
 import { BookingSaveComponent } from './components/booking-save/booking-save.component';
+import { DriverMainComponent } from './components/driver-main/driver-main.component';
 
 const routes: Routes = [
   { path: 'company', component: CompanyMainComponent },
   { path: 'new-booking/:id', component: BookingSaveComponent },
+  { path: 'driver', component: DriverMainComponent },
 
   { path: '', component: LoginComponent },
   { path: 'index', component: IndexComponent },

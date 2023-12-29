@@ -11,6 +11,7 @@ export class MenuComponent implements OnInit {
   isLogged = false;
   mainMenu: Menu[] = [
     { idMenu: 1, name: 'Listado de Clientes', icon: 'person', url: '/company' },
+    { idMenu: 2, name: 'Listado de Conductores', icon: 'car', url: '/driver' },
   ];
 
   showFiller = false;
