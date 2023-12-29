@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
+import { DriverSaveComponent } from 'src/app/dialogs/driver-save/driver-save.component';
 import { Driver } from 'src/app/models/driver.model';
 import { DriverService } from 'src/app/services/driver.service';
 
@@ -25,10 +26,10 @@ export class DriverMainComponent {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   constructor(private driverService: DriverService, private dialogService: MatDialog, private router: Router) {
-    this.loadTable();
+    this.refreshTable();
   }
 
-  private loadTable() {
+  private refreshTable() {
     this.driverService.getAll().subscribe({
       next: (response: Driver[]) => {
         this.dataSource = new MatTableDataSource<Driver>(response);
@@ -54,8 +55,14 @@ export class DriverMainComponent {
 
   }
 
-  openAddDialog() {
+  openSaveDialog(id: number) {
+    const dialogRef = this.dialogService.open(DriverSaveComponent, { data: id });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refreshTable();
+      }
+    });
   }
 
   openUpdateDialog(item: any) {
