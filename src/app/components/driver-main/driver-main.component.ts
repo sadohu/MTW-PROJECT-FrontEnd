@@ -1,11 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
-import { CompanySaveComponent } from 'src/app/dialogs/company-save/company-save.component';
-import { Company } from 'src/app/models/company.model';
 import { Driver } from 'src/app/models/driver.model';
 import { DriverService } from 'src/app/services/driver.service';
 
@@ -23,12 +22,18 @@ export class DriverMainComponent {
 
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   constructor(private driverService: DriverService, private dialogService: MatDialog, private router: Router) {
+    this.loadTable();
+  }
+
+  private loadTable() {
     this.driverService.getAll().subscribe({
       next: (response: Driver[]) => {
         this.dataSource = new MatTableDataSource<Driver>(response);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error: (error: any) => {
         SwalCustoms.nyanAlert(error.message);
@@ -36,12 +41,13 @@ export class DriverMainComponent {
     });
   }
 
-  private refreshTable() {
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  }
-
-  search() {
-
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   newBooking(item: Driver) {
