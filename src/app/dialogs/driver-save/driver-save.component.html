@@ -1,0 +1,127 @@
+<div class="container" style="min-width: 45rem;">
+    <form class="mat-dialog-content" id="formSaveDriver" [formGroup]="formSaveDriver">
+        <div class="row">
+            <mat-toolbar color="primary">
+                <span>Registra Conductor</span>
+            </mat-toolbar>
+        </div>
+
+        <div class="row flex items-center mt-4" style="margin-top: 1%">
+            <mat-form-field class="col-md-4">
+                <mat-label>DNI</mat-label>
+                <input matInput name="idNumber" [(ngModel)]="idNumber" formControlName="validIdNumber" maxlength="8">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validIdNumber.touched">
+                    <span *ngIf="formSaveDriver.controls.validIdNumber.hasError('required')">
+                        El DNI es requerido.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validIdNumber.hasError('pattern')">
+                        Ingrese 8 dígitos.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+            <div class="col-md-2">
+                <button mat-flat-button color="primary" (click)="searchDNI()"
+                    [disabled]="formSaveDriver.controls.validIdNumber.invalid">Buscar</button>
+            </div>
+
+            <mat-form-field class="col-md-6">
+                <mat-label>Teléfono</mat-label>
+                <input matInput name="phone" [(ngModel)]="driver.phone" formControlName="validPhone" maxlength="9">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validPhone.touched">
+                    <span *ngIf="formSaveDriver.controls.validPhone.hasError('required')">
+                        El Teléfono es requerido.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validPhone.hasError('pattern')">
+                        Ingrese 9 dígitos.
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-6">
+                <mat-label>Nombres</mat-label>
+                <input matInput name="names" [(ngModel)]="driver.names" formControlName="validNames" readonly="true">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validNames.touched">
+                    <span *ngIf="formSaveDriver.controls.validNames.hasError('required')">
+                        Los Nombres son requeridos.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validNames.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6">
+                <mat-label>Apellidos</mat-label>
+                <input matInput name="lastNames" [(ngModel)]="driver.lastNames" formControlName="validLastNames"
+                    readonly="true">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validLastNames.touched">
+                    <span *ngIf="formSaveDriver.controls.validLastNames.hasError('required')">
+                        Los Apellidos son requeridos.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validLastNames.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <span>Vehiculo</span>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+            <mat-form-field class="col-md-4">
+                <mat-label>Marca</mat-label>
+                <input matInput name="brand" [(ngModel)]="driver.brand" formControlName="validBrand">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validBrand.touched">
+                    <span *ngIf="formSaveDriver.controls.validBrand.hasError('required')">
+                        La Marca es requerida.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validBrand.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4">
+                <mat-label>Modelo</mat-label>
+                <input matInput name="model" [(ngModel)]="driver.model" formControlName="validModel">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validModel.touched">
+                    <span *ngIf="formSaveDriver.controls.validModel.hasError('required')">
+                        El Modelo es requerido.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validModel.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4">
+                <mat-label>Placa</mat-label>
+                <input matInput name="carPlate" [(ngModel)]="driver.carPlate" formControlName="validCarPlate">
+                <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validCarPlate.touched">
+                    <span *ngIf="formSaveDriver.controls.validCarPlate.hasError('required')">
+                        La Placa es requerida.
+                    </span>
+                    <span *ngIf="formSaveDriver.controls.validCarPlate.hasError('pattern')">
+                        Ingrese de 3 a 50 caracteres (Número o letras).
+                    </span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="my-4" mat-dialog-actions>
+            <button mat-raised-button type="submit" color="primary" (click)="save()" [mat-dialog-close]="1"
+                [disabled]="formSaveDriver.invalid">
+                Registra Empresa
+            </button>
+
+            <button mat-button color="primary" (click)="closeDialog()">
+                Salir
+            </button>
+        </div>
+    </form>
+</div>

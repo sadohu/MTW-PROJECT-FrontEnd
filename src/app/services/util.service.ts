@@ -19,4 +19,9 @@ export class UtilService {
     const params = new HttpParams().set("token", token);
     return this.http.get<any>(`${urlRUC}/${ruc}`, { params });
   }
+
+  searchDNI(dni: string): Observable<any> {
+    const params = new HttpParams().set("token", token);
+    return this.http.get<any>(`${urlDNI}/${dni}`, { params });
+  }
 }
