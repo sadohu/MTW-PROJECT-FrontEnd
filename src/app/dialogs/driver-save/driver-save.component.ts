@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 import { DriverMainComponent } from 'src/app/components/driver-main/driver-main.component';
 import { Driver } from 'src/app/models/driver.model';
+import { DriverService } from 'src/app/services/driver.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -23,9 +24,11 @@ export class DriverSaveComponent {
     validBrand: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
     validModel: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
     validCarPlate: ['', [Validators.required, Validators.minLength(6), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
+    validYear: ['', [Validators.required, Validators.pattern("[0-9]{4}")]],
+    validColor: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
   });
 
-  constructor(private dialogRef: MatDialogRef<DriverMainComponent>, private formBuilder: FormBuilder, private utilService: UtilService, @Inject(MAT_DIALOG_DATA) public data: Driver,) {
+  constructor(private dialogRef: MatDialogRef<DriverMainComponent>, private formBuilder: FormBuilder, private utilService: UtilService, private driverService: DriverService, @Inject(MAT_DIALOG_DATA) public data: Driver,) {
     this.driver = data;
   }
 
@@ -49,7 +52,17 @@ export class DriverSaveComponent {
   }
 
   save() {
-
+    if (this.driver.idDriver == 0) {
+      this.driverService.create(this.driver).subscribe({
+        next: response => {
+          SwalCustoms.info("Registro exitoso");
+          this.closeDialog();
+        },
+        error: error => {
+          SwalCustoms.nyanAlert(error.error.message);
+        }
+      });
+    }
   }
 
   closeDialog() {
