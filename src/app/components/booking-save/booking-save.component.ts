@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
+import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Area } from 'src/app/models/area.model';
 import { Booking } from 'src/app/models/booking.model';
 import { Company } from 'src/app/models/company.model';
@@ -34,7 +36,7 @@ export class BookingSaveComponent implements OnInit {
     bill: {}
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private companyService: CompanyService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService) {
 
   }
 
@@ -68,6 +70,17 @@ export class BookingSaveComponent implements OnInit {
   save() {
     console.log("this.booking", this.booking);
 
+  }
+
+  openDriverDialog() {
+    const dialogRef = this.dialogService.open(DriverSearchComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("result", result);
+
+      }
+    });
   }
 
 }

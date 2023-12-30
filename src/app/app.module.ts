@@ -19,6 +19,7 @@ import { CompanySaveComponent } from './dialogs/company-save/company-save.compon
 import { BookingSaveComponent } from './components/booking-save/booking-save.component';
 import { DriverMainComponent } from './components/driver-main/driver-main.component';
 import { DriverSaveComponent } from './dialogs/driver-save/driver-save.component';
+import { DriverSearchComponent } from './dialogs/driver-search/driver-search.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DriverSaveComponent } from './dialogs/driver-save/driver-save.component
     /* Dialog Components */
     CompanySaveComponent,
     DriverSaveComponent,
+    DriverSearchComponent,
   ],
   imports: [
     BrowserModule,
