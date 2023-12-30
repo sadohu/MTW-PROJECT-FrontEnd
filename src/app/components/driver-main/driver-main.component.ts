@@ -63,6 +63,14 @@ export class DriverMainComponent {
   }
 
   deleteDriver(item: Driver) {
-
+    this.driverService.delete(item.idDriver!).subscribe({
+      next: (response: any) => {
+        SwalCustoms.info("Eliminado correctamente");
+        this.refreshTable();
+      },
+      error: (error: any) => {
+        SwalCustoms.nyanAlert(error.message);
+      }
+    })
   }
 }
