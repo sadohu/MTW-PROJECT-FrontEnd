@@ -2,14 +2,15 @@
     <form class="mat-dialog-content" id="formSaveDriver" [formGroup]="formSaveDriver">
         <div class="row">
             <mat-toolbar color="primary">
-                <span>Registra Conductor</span>
+                <span>{{saveForm ? "Registra Conductor" : "Actualiza Conductor"}}</span>
             </mat-toolbar>
         </div>
 
         <div class="row flex items-center mt-4" style="margin-top: 1%">
             <mat-form-field class="col-md-4">
                 <mat-label>DNI</mat-label>
-                <input matInput name="idNumber" [(ngModel)]="idNumber" formControlName="validIdNumber" maxlength="8">
+                <input matInput name="idNumber" [(ngModel)]="idNumber" formControlName="validIdNumber" maxlength="8"
+                    [readonly]="!saveForm">
                 <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validIdNumber.touched">
                     <span *ngIf="formSaveDriver.controls.validIdNumber.hasError('required')">
                         El DNI es requerido.
@@ -22,7 +23,7 @@
 
             <div class="col-md-2">
                 <button mat-flat-button color="primary" (click)="searchDNI()"
-                    [disabled]="formSaveDriver.controls.validIdNumber.invalid">Buscar</button>
+                    [disabled]="formSaveDriver.controls.validIdNumber.invalid" [disabled]="!saveForm">Buscar</button>
             </div>
 
             <mat-form-field class="col-md-6">
@@ -144,7 +145,7 @@
         <div class="my-4" mat-dialog-actions>
             <button mat-raised-button type="submit" color="primary" (click)="save()" [mat-dialog-close]="1"
                 [disabled]="formSaveDriver.invalid">
-                Registra Conductor
+                {{saveForm ? "Registra Conductor" : "Actualiza Conductor"}}
             </button>
 
             <button mat-button color="primary" (click)="closeDialog()">

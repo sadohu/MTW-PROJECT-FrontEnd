@@ -18,7 +18,7 @@ import { DriverService } from 'src/app/services/driver.service';
 export class DriverMainComponent {
   filter: string = "";
   dataSource: any;
-  newDriver: Driver = {};
+  newDriver: Driver = { idDriver: 0 };
 
   displayedColumns = ["names", "lastNames", "idNumber", "phone", "brand", "model", "carPlate", "year", "color", "actions"];
 

@@ -15,6 +15,7 @@ import { UtilService } from 'src/app/services/util.service';
 export class DriverSaveComponent {
   driver: Driver = {};
   idNumber: string = "";
+  saveForm = false;
 
   formSaveDriver = this.formBuilder.group({
     validIdNumber: ['', [Validators.required, Validators.pattern("[0-9]{8}")]],
@@ -29,6 +30,13 @@ export class DriverSaveComponent {
   });
 
   constructor(private dialogRef: MatDialogRef<DriverMainComponent>, private formBuilder: FormBuilder, private utilService: UtilService, private driverService: DriverService, @Inject(MAT_DIALOG_DATA) public data: Driver,) {
+    if (data.idDriver == 0)
+      this.saveForm = true;
+    else {
+      this.saveForm = false;
+      this.idNumber = data.idNumber!;
+    }
+
     this.driver = data;
   }
 
@@ -52,6 +60,7 @@ export class DriverSaveComponent {
   }
 
   save() {
+    this.setUpperCase();
     if (this.driver.idDriver == 0) {
       this.driverService.create(this.driver).subscribe({
         next: response => {
@@ -59,7 +68,17 @@ export class DriverSaveComponent {
           this.closeDialog();
         },
         error: error => {
-          SwalCustoms.nyanAlert(error.error.message);
+          SwalCustoms.nyanAlert(error.message);
+        }
+      });
+    } else {
+      this.driverService.update(this.driver).subscribe({
+        next: response => {
+          SwalCustoms.info("Actualización exitosa");
+          this.closeDialog();
+        },
+        error: error => {
+          SwalCustoms.nyanAlert(error.message);
         }
       });
     }
@@ -86,4 +105,14 @@ export class DriverSaveComponent {
     this.driver.year = "";
     this.driver.color = "";
   }
+
+  setUpperCase() {
+    this.driver.names = this.driver.names?.toUpperCase();
+    this.driver.lastNames = this.driver.lastNames?.toUpperCase();
+    this.driver.brand = this.driver.brand?.toUpperCase();
+    this.driver.model = this.driver.model?.toUpperCase();
+    this.driver.carPlate = this.driver.carPlate?.toUpperCase();
+    this.driver.color = this.driver.color?.toUpperCase();
+  }
+
 }
