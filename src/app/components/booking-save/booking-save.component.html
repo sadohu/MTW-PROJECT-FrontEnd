@@ -54,7 +54,7 @@
                             <mat-select name="ubigeoPickUp" [(ngModel)]="booking.ubigeoPickUp!.idUbigeo">
                                 <mat-option value="-1"> [Seleccione el Distrito] </mat-option>
                                 <mat-option *ngFor="let item of ubigeo" [value]="item.idUbigeo">
-                                    {{item.district}}
+                                    {{item.name}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -71,7 +71,7 @@
                             <mat-select name="ubigeoDestination" [(ngModel)]="booking.ubigeoDestination!.idUbigeo">
                                 <mat-option value="-1"> [Seleccione el Distrito] </mat-option>
                                 <mat-option *ngFor="let item of ubigeo" [value]="item.idUbigeo">
-                                    {{item.district}}
+                                    {{item.name}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>

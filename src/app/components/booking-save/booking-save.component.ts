@@ -10,6 +10,7 @@ import { Currency } from 'src/app/models/currency.model';
 import { Driver } from 'src/app/models/driver.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
 import { CompanyService } from 'src/app/services/company.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-booking-save ',
@@ -35,7 +36,11 @@ export class BookingSaveComponent implements OnInit {
     bill: {}
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService) {
+    this.utilService.getUbigeoLimaMetropolitana().subscribe({
+      next: (response: Ubigeo[]) => this.ubigeo = response,
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    });
 
   }
 
