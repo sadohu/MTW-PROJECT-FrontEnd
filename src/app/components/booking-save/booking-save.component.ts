@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
+import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Area } from 'src/app/models/area.model';
 import { Booking } from 'src/app/models/booking.model';
 import { Company } from 'src/app/models/company.model';
@@ -8,6 +10,7 @@ import { Currency } from 'src/app/models/currency.model';
 import { Driver } from 'src/app/models/driver.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
 import { CompanyService } from 'src/app/services/company.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-booking-save ',
@@ -20,21 +23,24 @@ export class BookingSaveComponent implements OnInit {
   drivers: Driver[] = [];
   areas: Area[] = [];
   currencies: Currency[] = [];
-
-
   company: Company = {};
+
   booking: Booking = {
-    company: {},
-    area: {},
-    passenger: {},
-    ubigeoPickUp: {},
-    ubigeoDestination: {},
-    currency: {},
-    driver: {},
+    company: { idCompany: -1 },
+    area: { idArea: -1 },
+    passenger: { names: "", lastNames: "" },
+    ubigeoPickUp: { idUbigeo: -1 },
+    ubigeoDestination: { idUbigeo: -1 },
+    currency: { idCurrency: -1 },
+    driver: { names: "", lastNames: "" },
     bill: {}
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private companyService: CompanyService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService) {
+    this.utilService.getUbigeoLimaMetropolitana().subscribe({
+      next: (response: Ubigeo[]) => this.ubigeo = response,
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    });
 
   }
 
@@ -68,6 +74,16 @@ export class BookingSaveComponent implements OnInit {
   save() {
     console.log("this.booking", this.booking);
 
+  }
+
+  openDriverDialog() {
+    const dialogRef = this.dialogService.open(DriverSearchComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.booking.driver = result;
+      }
+    });
   }
 
 }

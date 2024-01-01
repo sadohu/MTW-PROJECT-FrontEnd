@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 import { DriverMainComponent } from 'src/app/components/driver-main/driver-main.component';
 import { Driver } from 'src/app/models/driver.model';
+import { DriverService } from 'src/app/services/driver.service';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { UtilService } from 'src/app/services/util.service';
 export class DriverSaveComponent {
   driver: Driver = {};
   idNumber: string = "";
+  saveForm = false;
 
   formSaveDriver = this.formBuilder.group({
     validIdNumber: ['', [Validators.required, Validators.pattern("[0-9]{8}")]],
@@ -23,9 +25,18 @@ export class DriverSaveComponent {
     validBrand: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
     validModel: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
     validCarPlate: ['', [Validators.required, Validators.minLength(6), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
+    validYear: ['', [Validators.required, Validators.pattern("[0-9]{4}")]],
+    validColor: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
   });
 
-  constructor(private dialogRef: MatDialogRef<DriverMainComponent>, private formBuilder: FormBuilder, private utilService: UtilService, @Inject(MAT_DIALOG_DATA) public data: Driver,) {
+  constructor(private dialogRef: MatDialogRef<DriverMainComponent>, private formBuilder: FormBuilder, private utilService: UtilService, private driverService: DriverService, @Inject(MAT_DIALOG_DATA) public data: Driver,) {
+    if (data.idDriver == 0)
+      this.saveForm = true;
+    else {
+      this.saveForm = false;
+      this.idNumber = data.idNumber!;
+    }
+
     this.driver = data;
   }
 
@@ -49,7 +60,28 @@ export class DriverSaveComponent {
   }
 
   save() {
-
+    this.setUpperCase();
+    if (this.driver.idDriver == 0) {
+      this.driverService.create(this.driver).subscribe({
+        next: response => {
+          SwalCustoms.info("Registro exitoso");
+          this.closeDialog();
+        },
+        error: error => {
+          SwalCustoms.nyanAlert(error.message);
+        }
+      });
+    } else {
+      this.driverService.update(this.driver).subscribe({
+        next: response => {
+          SwalCustoms.info("Actualización exitosa");
+          this.closeDialog();
+        },
+        error: error => {
+          SwalCustoms.nyanAlert(error.message);
+        }
+      });
+    }
   }
 
   closeDialog() {
@@ -73,4 +105,14 @@ export class DriverSaveComponent {
     this.driver.year = "";
     this.driver.color = "";
   }
+
+  setUpperCase() {
+    this.driver.names = this.driver.names?.toUpperCase();
+    this.driver.lastNames = this.driver.lastNames?.toUpperCase();
+    this.driver.brand = this.driver.brand?.toUpperCase();
+    this.driver.model = this.driver.model?.toUpperCase();
+    this.driver.carPlate = this.driver.carPlate?.toUpperCase();
+    this.driver.color = this.driver.color?.toUpperCase();
+  }
+
 }

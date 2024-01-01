@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -18,7 +18,7 @@ import { DriverService } from 'src/app/services/driver.service';
 export class DriverMainComponent {
   filter: string = "";
   dataSource: any;
-  newDriver: Driver = {};
+  newDriver: Driver = { idDriver: 0 };
 
   displayedColumns = ["names", "lastNames", "idNumber", "phone", "brand", "model", "carPlate", "year", "color", "actions"];
 
@@ -26,7 +26,7 @@ export class DriverMainComponent {
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  constructor(private driverService: DriverService, private dialogService: MatDialog, private router: Router) {
+  constructor(private driverService: DriverService, private dialogService: MatDialog) {
     this.refreshTable();
   }
 
@@ -55,14 +55,22 @@ export class DriverMainComponent {
   openSaveDialog(driver: Driver) {
     const dialogRef = this.dialogService.open(DriverSaveComponent, { data: driver });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refreshTable();
+    dialogRef.afterClosed().subscribe(object => {
+      if (object) {
+        console.log(object);
       }
     });
   }
 
   deleteDriver(item: Driver) {
-
+    this.driverService.delete(item.idDriver!).subscribe({
+      next: (response: any) => {
+        SwalCustoms.info("Eliminado correctamente");
+        this.refreshTable();
+      },
+      error: (error: any) => {
+        SwalCustoms.nyanAlert(error.message);
+      }
+    })
   }
 }
