@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -26,7 +26,7 @@ export class DriverMainComponent {
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  constructor(private driverService: DriverService, private dialogService: MatDialog, private router: Router) {
+  constructor(private driverService: DriverService, private dialogService: MatDialog) {
     this.refreshTable();
   }
 
@@ -55,9 +55,9 @@ export class DriverMainComponent {
   openSaveDialog(driver: Driver) {
     const dialogRef = this.dialogService.open(DriverSaveComponent, { data: driver });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refreshTable();
+    dialogRef.afterClosed().subscribe(object => {
+      if (object) {
+        console.log(object);
       }
     });
   }
