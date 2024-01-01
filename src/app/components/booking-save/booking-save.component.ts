@@ -22,17 +22,16 @@ export class BookingSaveComponent implements OnInit {
   drivers: Driver[] = [];
   areas: Area[] = [];
   currencies: Currency[] = [];
-
-
   company: Company = {};
+
   booking: Booking = {
-    company: {},
-    area: {},
-    passenger: {},
-    ubigeoPickUp: {},
-    ubigeoDestination: {},
-    currency: {},
-    driver: {},
+    company: { idCompany: -1 },
+    area: { idArea: -1 },
+    passenger: { names: "", lastNames: "" },
+    ubigeoPickUp: { idUbigeo: -1 },
+    ubigeoDestination: { idUbigeo: -1 },
+    currency: { idCurrency: -1 },
+    driver: { names: "", lastNames: "" },
     bill: {}
   };
 
@@ -77,8 +76,7 @@ export class BookingSaveComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("result", result);
-
+        this.booking.driver = result;
       }
     });
   }

@@ -102,8 +102,8 @@
                     <div class="row justify-content-md-center">
                         <mat-form-field class="col-md-6">
                             <mat-label>Nombre de Conductor</mat-label>
-                            <input matInput name="driver" [(ngModel)]="booking.driver!.idDriver"
-                                value="{{booking.driver!.names + ' ' + booking.driver!.lastNames}}" readonly="true">
+                            <input matInput name="driver"
+                                [(ngModel)]="booking.driver!.names + ' ' + booking.driver!.lastNames" readonly="true">
                         </mat-form-field>
                         <div class="col-md-2">
                             <button mat-raised-button color="primary" type="button" class="btn btn-primary btn-sm"
