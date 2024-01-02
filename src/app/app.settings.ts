@@ -11,6 +11,7 @@ export class AppSettings {
     public static UBIGEO_SERVICE = AppSettings.API_ENDPOINT + '/ubigeo';
 
     /* Main endpoints */
+    public static BOOKING_SERVICE = AppSettings.API_ENDPOINT + '/booking';
     public static COMPANY_SERVICE = AppSettings.API_ENDPOINT + '/company';
     public static DRIVER_SERVICE = AppSettings.API_ENDPOINT + '/driver';
 

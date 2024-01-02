@@ -11,6 +11,7 @@ import { Company } from 'src/app/models/company.model';
 import { Currency } from 'src/app/models/currency.model';
 import { Driver } from 'src/app/models/driver.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
+import { BookingService } from 'src/app/services/booking.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -42,7 +43,7 @@ export class BookingSaveComponent implements OnInit {
     bill: {}
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService, private bookingService: BookingService) {
     this.utilService.getUbigeoLimaMetropolitana().subscribe({
       next: (response: Ubigeo[]) => this.ubigeo = response,
       error: (error: any) => SwalCustoms.nyanAlert(error.message)
@@ -90,13 +91,22 @@ export class BookingSaveComponent implements OnInit {
   }
 
   save() {
-    const date = parse(this.dateForm, 'yyyy-MM-dd', new Date());
-    const time = parse(`${this.dateForm} ${this.timeForm}`, 'yyyy-MM-dd HH:mm', new Date());
-    this.booking.date = date.toString();
-    this.booking.time = time.toString();
+    // const date = parse(this.dateForm, 'yyyy-MM-dd', new Date());
+    // const time = parse(`${this.dateForm} ${this.timeForm}`, 'yyyy-MM-dd HH:mm', new Date());
+    // this.booking.date = date.toString();
+    // this.booking.time = time.toString();
+    this.booking.date = this.dateForm;
+    this.booking.time = this.timeForm;
+    this.booking.company = this.company;
 
     console.log("this.booking", this.booking);
-
+    this.bookingService.save(this.booking).subscribe({
+      next: (response: any) => {
+        SwalCustoms.info("Se guardó correctamente");
+        this.router.navigate(['company']);
+      },
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    });
   }
 
   openDriverDialog() {
