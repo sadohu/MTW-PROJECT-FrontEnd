@@ -8,8 +8,8 @@ import { Ubigeo } from "./ubigeo.model";
 
 export class Booking {
     idBooking?: number;
-    date?: Date;
-    time?: Date;
+    date?: string;
+    time?: string;
     company?: Company;
     applicant?: string;
     area?: Area;

@@ -1,6 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { format, parse } from 'date-fns';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Area } from 'src/app/models/area.model';
@@ -9,6 +11,7 @@ import { Company } from 'src/app/models/company.model';
 import { Currency } from 'src/app/models/currency.model';
 import { Driver } from 'src/app/models/driver.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
+import { BookingService } from 'src/app/services/booking.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -24,6 +27,10 @@ export class BookingSaveComponent implements OnInit {
   areas: Area[] = [];
   currencies: Currency[] = [];
   company: Company = {};
+  defaultCurrencySoles = 1;
+  dateForm = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+  // timeForm = formatDate(new Date(), 'HH:mm', 'en-US')
+  timeForm = "00:00"
 
   booking: Booking = {
     company: { idCompany: -1 },
@@ -36,12 +43,24 @@ export class BookingSaveComponent implements OnInit {
     bill: {}
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService, private bookingService: BookingService) {
     this.utilService.getUbigeoLimaMetropolitana().subscribe({
       next: (response: Ubigeo[]) => this.ubigeo = response,
       error: (error: any) => SwalCustoms.nyanAlert(error.message)
     });
 
+    this.utilService.getCurrencies().subscribe({
+      next: (response: Currency[]) => {
+        this.currencies = response;
+        this.booking.currency!.idCurrency = this.defaultCurrencySoles;
+      },
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    })
+
+    this.utilService.getAreasByCompany(0).subscribe({
+      next: (response: Area[]) => this.areas = response,
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    })
   }
 
   ngOnInit(): void {
@@ -72,8 +91,22 @@ export class BookingSaveComponent implements OnInit {
   }
 
   save() {
-    console.log("this.booking", this.booking);
+    // const date = parse(this.dateForm, 'yyyy-MM-dd', new Date());
+    // const time = parse(`${this.dateForm} ${this.timeForm}`, 'yyyy-MM-dd HH:mm', new Date());
+    // this.booking.date = date.toString();
+    // this.booking.time = time.toString();
+    this.booking.date = this.dateForm;
+    this.booking.time = this.timeForm;
+    this.booking.company = this.company;
 
+    console.log("this.booking", this.booking);
+    this.bookingService.save(this.booking).subscribe({
+      next: (response: any) => {
+        SwalCustoms.info("Se guardó correctamente");
+        this.router.navigate(['company']);
+      },
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    });
   }
 
   openDriverDialog() {
