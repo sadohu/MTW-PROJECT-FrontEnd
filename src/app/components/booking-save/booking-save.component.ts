@@ -1,6 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { format, parse } from 'date-fns';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Area } from 'src/app/models/area.model';
@@ -25,6 +27,9 @@ export class BookingSaveComponent implements OnInit {
   currencies: Currency[] = [];
   company: Company = {};
   defaultCurrencySoles = 1;
+  dateForm = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+  // timeForm = formatDate(new Date(), 'HH:mm', 'en-US')
+  timeForm = "00:00"
 
   booking: Booking = {
     company: { idCompany: -1 },
@@ -51,6 +56,10 @@ export class BookingSaveComponent implements OnInit {
       error: (error: any) => SwalCustoms.nyanAlert(error.message)
     })
 
+    this.utilService.getAreasByCompany(0).subscribe({
+      next: (response: Area[]) => this.areas = response,
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    })
   }
 
   ngOnInit(): void {
@@ -81,6 +90,11 @@ export class BookingSaveComponent implements OnInit {
   }
 
   save() {
+    const date = parse(this.dateForm, 'yyyy-MM-dd', new Date());
+    const time = parse(`${this.dateForm} ${this.timeForm}`, 'yyyy-MM-dd HH:mm', new Date());
+    this.booking.date = date.toString();
+    this.booking.time = time.toString();
+
     console.log("this.booking", this.booking);
 
   }
