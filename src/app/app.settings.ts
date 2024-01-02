@@ -4,6 +4,7 @@ export class AppSettings {
     public static COMPANY_SERVICE = AppSettings.API_ENDPOINT + '/company';
     public static DRIVER_SERVICE = AppSettings.API_ENDPOINT + '/driver';
     public static UBIGEO_SERVICE = AppSettings.API_ENDPOINT + '/ubigeo';
+    public static CURRENCY_SERVICE = AppSettings.API_ENDPOINT + '/currency';
 
     public static API_APIPERU = 'https://dniruc.apisperu.com/api/v1';
     public static API_APIPERU_RUC = AppSettings.API_APIPERU + '/ruc';

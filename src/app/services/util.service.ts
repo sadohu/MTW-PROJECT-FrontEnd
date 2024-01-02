@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppSettings } from '../app.settings';
 import { Observable } from 'rxjs';
 import { Ubigeo } from '../models/ubigeo.model';
+import { Currency } from '../models/currency.model';
 
 const urlRUC = AppSettings.API_APIPERU_RUC;
 const urlDNI = AppSettings.API_APIPERU_DNI;
@@ -10,6 +11,8 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxyMjcwNzIwMDFA
 
 const urlUbigeo = AppSettings.UBIGEO_SERVICE;
 const urlUbigeoLimaMetropolitana = `${urlUbigeo}/department/15/province/01`;
+
+const urlCurrency = AppSettings.CURRENCY_SERVICE;
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +34,10 @@ export class UtilService {
 
   getUbigeoLimaMetropolitana(): Observable<Ubigeo[]> {
     return this.http.get<Ubigeo[]>(urlUbigeoLimaMetropolitana);
+  }
+
+  getCurrencies(): Observable<Currency[]> {
+    return this.http.get<Currency[]>(urlCurrency);
   }
 
 }

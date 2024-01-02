@@ -24,6 +24,7 @@ export class BookingSaveComponent implements OnInit {
   areas: Area[] = [];
   currencies: Currency[] = [];
   company: Company = {};
+  defaultCurrencySoles = 1;
 
   booking: Booking = {
     company: { idCompany: -1 },
@@ -41,6 +42,14 @@ export class BookingSaveComponent implements OnInit {
       next: (response: Ubigeo[]) => this.ubigeo = response,
       error: (error: any) => SwalCustoms.nyanAlert(error.message)
     });
+
+    this.utilService.getCurrencies().subscribe({
+      next: (response: Currency[]) => {
+        this.currencies = response;
+        this.booking.currency!.idCurrency = this.defaultCurrencySoles;
+      },
+      error: (error: any) => SwalCustoms.nyanAlert(error.message)
+    })
 
   }
 
