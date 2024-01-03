@@ -78,6 +78,13 @@
                     </div>
 
                     <div class="row justify-content-md-center">
+                        <mat-form-field class="col-md-8">
+                            <mat-label>Notas, comentarios y/o observaciones</mat-label>
+                            <input matInput name="destination" [(ngModel)]="booking.notes">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row justify-content-md-center">
                         <mat-form-field class="col-md-2">
                             <mat-label>Moneda</mat-label>
                             <mat-select name="ubigeoDestination" [(ngModel)]="booking.currency!.idCurrency" [value]="1">
