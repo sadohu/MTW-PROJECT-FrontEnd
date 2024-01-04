@@ -33,6 +33,7 @@ export class BookingSaveComponent implements OnInit {
   timeForm = "00:00"
 
   booking: Booking = {
+    idBooking: -1,
     company: { idCompany: -1 },
     area: { idArea: -1 },
     passenger: { names: "", lastNames: "" },
@@ -110,7 +111,7 @@ export class BookingSaveComponent implements OnInit {
   }
 
   openDriverDialog() {
-    const dialogRef = this.dialogService.open(DriverSearchComponent);
+    const dialogRef = this.dialogService.open(DriverSearchComponent, { data: this.booking });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
