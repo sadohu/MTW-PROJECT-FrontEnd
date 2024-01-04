@@ -88,7 +88,7 @@
                         <mat-form-field class="col-md-2">
                             <mat-label>Moneda</mat-label>
                             <mat-select name="ubigeoDestination" [(ngModel)]="booking.currency!.idCurrency" [value]="1">
-                                <mat-option value="-1"> [Seleccione la Modena] </mat-option>
+                                <mat-option value="-1"> [Seleccione la Moneda] </mat-option>
                                 <mat-option *ngFor="let item of currencies" [value]="item.idCurrency">
                                     {{item.name}}
                                 </mat-option>
