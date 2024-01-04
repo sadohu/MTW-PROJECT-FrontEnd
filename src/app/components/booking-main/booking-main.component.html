@@ -11,7 +11,7 @@
                 <div class="row" class="pt-8">
                     <mat-form-field class="col-md-4">
                         <mat-label>Filtro</mat-label>
-                        <input matInput [(ngModel)]="filter" (keyup)="applyFilter($event)" #input>
+                        <input matInput [(ngModel)]="filter" (keyup)="applyFilter()" #input>
                     </mat-form-field>
 
                     <!-- <button mat-raised-button color="primary" type="button" (click)="openSaveDialog(newDriver)"
@@ -44,8 +44,7 @@
                         <ng-container matColumnDef="company">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Cliente</mat-header-cell>
-                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.company.businessName
-                                }}</mat-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.company }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="applicant">
@@ -57,35 +56,39 @@
                         <ng-container matColumnDef="area">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Área</mat-header-cell>
-                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.area.name }}</mat-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.area }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="passenger">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Pasajero</mat-header-cell>
-                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.passenger.names + ' ' +
-                                item.passenger.lastNames }}</mat-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.passenger }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="pickUp">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Origen</mat-header-cell>
-                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.ubigeoPickUp.name
-                                }}</mat-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.ubigeoPickUp }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="destination">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Destino</mat-header-cell>
-                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.ubigeoDestination.name
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.ubigeoDestination
                                 }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="price">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Tarifa</mat-header-cell>
-                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.currency.symbol + ' ' +
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.currency + ' ' +
                                 item.price }}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="driver">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header
+                                class="justify-center">Conductor</mat-header-cell>
+                            <mat-cell class="justify-center" *matCellDef="let item">{{ item.driver }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="status">
