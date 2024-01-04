@@ -8,6 +8,7 @@ import { Booking } from 'src/app/models/booking.model';
 import { BookingService } from 'src/app/services/booking.service';
 import { setListBookingToDto } from 'src/app/Utils/ModelsDto';
 import { BookingDto } from 'src/app/Utils/modelsDto/booking-dto.model';
+import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 
 @Component({
   selector: 'app-booking-main',
@@ -20,7 +21,8 @@ export class BookingMainComponent {
   dataSource: any;
   newDriver: any = { idDriver: 0 };
 
-  displayedColumns = ["idBooking", "date", "time", "company", "applicant", "area", "passenger", "pickUp", "destination", "price", "driver", "status", "actions"];
+  displayedColumns = ["idBooking", "date", "time", "company", "area", "passenger", "pickUp", "destination", "price", "driver", "status", "actions"];
+  // , "applicant"
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
@@ -77,7 +79,49 @@ export class BookingMainComponent {
     });
   }
 
-  openSaveDialog(driver: Booking) {
+  setBookingStatusToProceso(booking: Booking) {
+    const message = `La reserva Nº ${booking.idBooking} pasará a estado "En proceso"`;
+
+    SwalCustoms.confirm("¿Desea cambiar el estado de la reserva?", message).then((result: any) => {
+      if (result) {
+        booking.status = "En Proceso";
+        console.log("booking", booking);
+
+        // this.bookingService.updateStatus(booking).subscribe({
+        //   next: (response: any) => {
+        //     console.log("response", response);
+        //     this.refreshTable();
+        //   },
+        //   error: (error: any) => {
+        //     console.log(error);
+        //   }
+        // });
+      }
+    });
+  }
+
+  setBookingStatusToFinalizado(booking: Booking) {
+    const message = `La reserva Nº ${booking.idBooking} pasará a estado "Finalizado"`;
+
+    SwalCustoms.confirm("¿Desea cambiar el estado de la reserva?", message).then((result: any) => {
+      if (result) {
+        booking.status = "Finalizado";
+        console.log("booking", booking);
+
+        // this.bookingService.updateStatus(booking).subscribe({
+        //   next: (response: any) => {
+        //     console.log("response", response);
+        //     this.refreshTable();
+        //   },
+        //   error: (error: any) => {
+        //     console.log(error);
+        //   }
+        // });
+      }
+    });
+  }
+
+  openBookingDetailsDialog(booking: Booking) {
     // const dialogRef = this.dialogService.open(DriverSaveComponent, { data: driver });
 
     // dialogRef.afterClosed().subscribe(object => {
@@ -85,18 +129,6 @@ export class BookingMainComponent {
     //     console.log(object);
     //   }
     // });
-  }
-
-  deleteDriver(item: Booking) {
-    // this.driverService.delete(item.idDriver!).subscribe({
-    //   next: (response: any) => {
-    //     SwalCustoms.info("Eliminado correctamente");
-    //     this.refreshTable();
-    //   },
-    //   error: (error: any) => {
-    //     SwalCustoms.nyanAlert(error.message);
-    //   }
-    // })
   }
 
 }

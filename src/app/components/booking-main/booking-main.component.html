@@ -8,7 +8,7 @@
                     </mat-toolbar>
                 </div>
 
-                <div class="row" class="pt-8">
+                <div class="row pt-8">
                     <mat-form-field class="col-md-4">
                         <mat-label>Filtro</mat-label>
                         <input matInput [(ngModel)]="filter" (keyup)="applyFilter()" #input>
@@ -18,7 +18,7 @@
                         class='btn btn-primary btn-sm w-40 ml-4'>Registrar</button> -->
                 </div>
 
-                <div class="row" class=" pt-8">
+                <div class="row pt-8">
                     <mat-table [dataSource]="dataSource" matSort>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
@@ -47,11 +47,11 @@
                             <mat-cell class="justify-center" *matCellDef="let item">{{ item.company }}</mat-cell>
                         </ng-container>
 
-                        <ng-container matColumnDef="applicant">
+                        <!-- <ng-container matColumnDef="applicant">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
                                 class="justify-center">Solicitante</mat-header-cell>
                             <mat-cell class="justify-center" *matCellDef="let item">{{ item.applicant }}</mat-cell>
-                        </ng-container>
+                        </ng-container> -->
 
                         <ng-container matColumnDef="area">
                             <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -100,7 +100,7 @@
                         <ng-container matColumnDef="actions">
                             <mat-header-cell *matHeaderCellDef class="justify-center">&nbsp;</mat-header-cell>
 
-                            <mat-cell *matCellDef="let item;">
+                            <mat-cell *matCellDef="let item;" class="">
                                 <!-- <div class="form-check form-switch">
                                                     <input type="checkbox" class="form-check-input" role="switch"
                                                         id="idEstado_{{ item.idRevista }}" [checked]="item.estado == 1 ? true : false"
@@ -108,12 +108,24 @@
                                                     <label class="custom-control-label" for="idEstado_{{ item.idRevista }}"></label>
                                                 </div> -->
 
-                                <button mat-icon-button color="accent" (click)="openDriverDialog(item)">
-                                    <mat-icon aria-label="Edit">edit</mat-icon>
+                                <button mat-icon-button color="accent" *ngIf="item.status == 'Reserva'"
+                                    (click)="openDriverDialog(item)">
+                                    <mat-icon aria-label="Asignar conductor">hail</mat-icon>
                                 </button>
 
-                                <button mat-icon-button color="accent" (click)="deleteDriver(item)">
-                                    <mat-icon aria-label="Delete">delete</mat-icon>
+                                <button mat-icon-button color="accent" *ngIf="item.status == 'Pendiente'"
+                                    (click)="setBookingStatusToProceso(item)">
+                                    <mat-icon
+                                        aria-label="Cambiar estado a: Reserva en Proceso">airport_shuttle</mat-icon>
+                                </button>
+
+                                <button mat-icon-button color="accent" *ngIf="item.status == 'En Proceso'"
+                                    (click)="setBookingStatusToFinalizado(item)">
+                                    <mat-icon aria-label="Cambiar estado a: Reserva Finalizada">no_crash</mat-icon>
+                                </button>
+
+                                <button mat-icon-button color="accent" (click)="openBookingDetailsDialog(item)">
+                                    <mat-icon aria-label="Detalles de Reserva">assignment</mat-icon>
                                 </button>
                             </mat-cell>
                         </ng-container>

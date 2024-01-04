@@ -21,4 +21,8 @@ export class BookingService {
   save(booking: Booking): Observable<any> {
     return this.http.post(url, booking);
   }
+
+  updateStatus(booking: Booking): Observable<any> {
+    return this.http.put(url, booking);
+  }
 }
