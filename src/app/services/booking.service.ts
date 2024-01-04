@@ -14,6 +14,10 @@ export class BookingService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(): Observable<Booking[]> {
+    return this.http.get<Booking[]>(url);
+  }
+
   save(booking: Booking): Observable<any> {
     return this.http.post(url, booking);
   }

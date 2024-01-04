@@ -16,22 +16,25 @@ export class DriverSaveComponent {
   driver: Driver = {};
   idNumber: string = "";
   saveForm = false;
+  dniButtonDisabled = true;
 
   formSaveDriver = this.formBuilder.group({
     validIdNumber: ['', [Validators.required, Validators.pattern("[0-9]{8}")]],
     validPhone: ['', [Validators.required, Validators.pattern("[0-9]{9}")]],
     validNames: ['', [Validators.required, Validators.minLength(3), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
     validLastNames: ['', [Validators.required, Validators.minLength(3), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
-    validBrand: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
-    validModel: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
-    validCarPlate: ['', [Validators.required, Validators.minLength(6), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
+    validBrand: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
+    validModel: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\.]+")]],
+    validCarPlate: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
     validYear: ['', [Validators.required, Validators.pattern("[0-9]{4}")]],
     validColor: ['', [Validators.required, Validators.minLength(2), Validators.pattern("[a-zA-Zá-úÁ-ÚñÑ0-9 \\-\\.]+")]],
   });
 
   constructor(private dialogRef: MatDialogRef<DriverMainComponent>, private formBuilder: FormBuilder, private utilService: UtilService, private driverService: DriverService, @Inject(MAT_DIALOG_DATA) public data: Driver,) {
-    if (data.idDriver == 0)
+    if (data.idDriver == 0) {
       this.saveForm = true;
+      this.driver.idNumber = "";
+    }
     else {
       this.saveForm = false;
       this.idNumber = data.idNumber!;

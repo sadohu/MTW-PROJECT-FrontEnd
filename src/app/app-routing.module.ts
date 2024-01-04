@@ -6,11 +6,13 @@ import { LoginComponent } from './components/login/login.component';
 import { CompanyMainComponent } from './components/company-main/company-main.component';
 import { BookingSaveComponent } from './components/booking-save/booking-save.component';
 import { DriverMainComponent } from './components/driver-main/driver-main.component';
+import { BookingMainComponent } from './components/booking-main/booking-main.component';
 
 const routes: Routes = [
   { path: 'company', component: CompanyMainComponent },
-  { path: 'new-booking/:id', component: BookingSaveComponent },
   { path: 'driver', component: DriverMainComponent },
+  { path: 'new-booking/:id', component: BookingSaveComponent },
+  { path: 'booking', component: BookingMainComponent },
 
   { path: '', component: LoginComponent },
   { path: 'index', component: IndexComponent },

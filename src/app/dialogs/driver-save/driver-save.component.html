@@ -23,7 +23,8 @@
 
             <div class="col-md-2">
                 <button mat-flat-button color="primary" (click)="searchDNI()"
-                    [disabled]="formSaveDriver.controls.validIdNumber.invalid" [disabled]="!saveForm">Buscar</button>
+                    [disabled]="formSaveDriver.controls.validIdNumber.invalid"
+                    [disabled]="dniButtonDisabled">Buscar</button>
             </div>
 
             <mat-form-field class="col-md-6">
@@ -102,13 +103,14 @@
 
             <mat-form-field class="col-md-4">
                 <mat-label>Placa</mat-label>
-                <input matInput name="carPlate" [(ngModel)]="driver.carPlate" formControlName="validCarPlate">
+                <input matInput name="carPlate" [(ngModel)]="driver.carPlate" formControlName="validCarPlate"
+                    maxlength="7">
                 <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validCarPlate.touched">
                     <span *ngIf="formSaveDriver.controls.validCarPlate.hasError('required')">
                         La Placa es requerida.
                     </span>
                     <span *ngIf="formSaveDriver.controls.validCarPlate.hasError('pattern')">
-                        Ingrese de 3 a 50 caracteres (Número o letras).
+                        Ingrese 6 caracteres (Número y letras).
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -117,13 +119,13 @@
         <div class="row" style="margin-top: 3%">
             <mat-form-field class="col-md-4">
                 <mat-label>Año</mat-label>
-                <input matInput name="year" [(ngModel)]="driver.year" formControlName="validYear">
+                <input matInput name="year" [(ngModel)]="driver.year" formControlName="validYear" maxlength="4">
                 <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validYear.touched">
                     <span *ngIf="formSaveDriver.controls.validYear.hasError('required')">
                         El Año es requerido.
                     </span>
                     <span *ngIf="formSaveDriver.controls.validYear.hasError('pattern')">
-                        Ingrese de 3 a 50 caracteres (Número o letras).
+                        Ingrese 4 dígitos.
                     </span>
                 </mat-hint>
             </mat-form-field>
@@ -133,7 +135,7 @@
                 <input matInput name="color" [(ngModel)]="driver.color" formControlName="validColor">
                 <mat-hint style="color:red" *ngIf="formSaveDriver.controls.validColor.touched">
                     <span *ngIf="formSaveDriver.controls.validColor.hasError('required')">
-                        La Marca es requerida.
+                        El Color es requerido.
                     </span>
                     <span *ngIf="formSaveDriver.controls.validColor.hasError('pattern')">
                         Ingrese de 3 a 50 caracteres (Número o letras).
@@ -145,7 +147,7 @@
         <div class="my-4" mat-dialog-actions>
             <button mat-raised-button type="submit" color="primary" (click)="save()" [mat-dialog-close]="1"
                 [disabled]="formSaveDriver.invalid">
-                {{saveForm ? "Registra Conductor" : "Actualiza Conductor"}}
+                {{ saveForm ? "Registra Conductor" : "Actualiza Conductor" }}
             </button>
 
             <button mat-button color="primary" (click)="closeDialog()">
