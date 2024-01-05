@@ -32,8 +32,24 @@ const info = (message: string) => {
     });
 }
 
+const confirm = (title: string, text: string) => {
+    return Swal.fire({
+        title: title,
+        text: text,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, confirmar",
+        cancelButtonText: "No, cancelar",
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
+
 export const SwalCustoms = {
     nyanAlert,
     error,
     info,
+    confirm,
 };

@@ -11,7 +11,7 @@ import { BookingMainComponent } from './components/booking-main/booking-main.com
 const routes: Routes = [
   { path: 'company', component: CompanyMainComponent },
   { path: 'driver', component: DriverMainComponent },
-  { path: 'new-booking/:id', component: BookingSaveComponent },
+  { path: 'booking/:mode/:id', component: BookingSaveComponent },
   { path: 'booking', component: BookingMainComponent },
 
   { path: '', component: LoginComponent },

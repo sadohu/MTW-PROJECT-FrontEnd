@@ -10,7 +10,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class MenuComponent implements OnInit {
   isLogged = false;
   mainMenu: Menu[] = [
-    { idMenu: 1, name: 'Listado de Clientes', icon: 'person', url: '/company' },
+    { idMenu: 1, name: 'Listado de Empresas', icon: 'person', url: '/company' },
     { idMenu: 2, name: 'Listado de Conductores', icon: 'hail', url: '/driver' },
     { idMenu: 3, name: 'Listado de Reservas', icon: 'assignment', url: '/booking' },
   ];

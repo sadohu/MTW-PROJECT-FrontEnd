@@ -88,7 +88,7 @@
                         <mat-form-field class="col-md-2">
                             <mat-label>Moneda</mat-label>
                             <mat-select name="ubigeoDestination" [(ngModel)]="booking.currency!.idCurrency" [value]="1">
-                                <mat-option value="-1"> [Seleccione la Modena] </mat-option>
+                                <mat-option value="-1"> [Seleccione la Moneda] </mat-option>
                                 <mat-option *ngFor="let item of currencies" [value]="item.idCurrency">
                                     {{item.name}}
                                 </mat-option>
@@ -123,6 +123,18 @@
                     <div class="row ">
                         <span>Datos de Facturación</span>
                     </div>
+                    <div class="row justify-content-md-center">
+                        <mat-form-field class="col-md-6">
+                            <mat-label>Empresa</mat-label>
+                            <input matInput name="company" [(ngModel)]="company.businessName"
+                                [disabled]="disableOptions">
+                        </mat-form-field>
+                        <div class="col-md-2">
+                            <button mat-raised-button color="primary" type="button" class="btn btn-primary btn-sm"
+                                (click)="openDriverDialog()" [disabled]="disableOptions">Buscar</button>
+                        </div>
+                    </div>
+
                     <div class="row justify-content-md-center">
                         <mat-form-field class="col-md-6">
                             <mat-label>Solicitante de Reserva</mat-label>

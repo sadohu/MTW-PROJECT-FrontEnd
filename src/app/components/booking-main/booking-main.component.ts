@@ -1,11 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Booking } from 'src/app/models/booking.model';
 import { BookingService } from 'src/app/services/booking.service';
 import { setListBookingToDto } from 'src/app/Utils/ModelsDto';
 import { BookingDto } from 'src/app/Utils/modelsDto/booking-dto.model';
+import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 
 @Component({
   selector: 'app-booking-main',
@@ -18,17 +21,16 @@ export class BookingMainComponent {
   dataSource: any;
   newDriver: any = { idDriver: 0 };
 
-  displayedColumns = ["idBooking", "date", "time", "company", "applicant", "area", "passenger", "pickUp", "destination", "price", "driver", "status", "actions"];
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
+  displayedColumns = ["idBooking", "date", "time", "company", "area", "passenger", "pickUp", "destination", "price", "driver", "status", "actions"];
+  // , "applicant"
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  constructor(private bookingService: BookingService) {
+  constructor(private dialogService: MatDialog, private bookingService: BookingService) {
     this.refreshTable();
   }
 
   applyFilter() {
-    // const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = this.filter.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -39,9 +41,9 @@ export class BookingMainComponent {
   refreshTable() {
     this.bookingService.getAll().subscribe({
       next: (response: any) => {
-        console.log("response", response);
+        // console.log("response", response);
         const listDto = setListBookingToDto(response);
-        console.log("listDto", listDto);
+        // console.log("listDto", listDto);
         this.dataSource = new MatTableDataSource<BookingDto>(listDto);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -52,7 +54,74 @@ export class BookingMainComponent {
     })
   }
 
-  openSaveDialog(driver: Booking) {
+  openDriverDialog(booking: Booking) {
+    const dialogRef = this.dialogService.open(DriverSearchComponent, { data: booking });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // console.log("result", result);
+        // console.log("booking", booking);
+        const newDriverToBooking = {
+          idBooking: booking.idBooking,
+          idDriver: result.idDriver
+        }
+        // TODO: Reemplazar por la nueva función de asignar conductor
+        this.bookingService.save(newDriverToBooking).subscribe({
+          next: (response: any) => {
+            console.log("response", response);
+            this.refreshTable();
+          },
+          error: (error: any) => {
+            console.log(error);
+          }
+        });
+      }
+    });
+  }
+
+  setBookingStatusToProceso(booking: Booking) {
+    const message = `La reserva Nº ${booking.idBooking} pasará a estado "En proceso"`;
+
+    SwalCustoms.confirm("¿Desea cambiar el estado de la reserva?", message).then((result: any) => {
+      if (result) {
+        booking.status = "En Proceso";
+        console.log("booking", booking);
+
+        // this.bookingService.updateStatus(booking).subscribe({
+        //   next: (response: any) => {
+        //     console.log("response", response);
+        //     this.refreshTable();
+        //   },
+        //   error: (error: any) => {
+        //     console.log(error);
+        //   }
+        // });
+      }
+    });
+  }
+
+  setBookingStatusToFinalizado(booking: Booking) {
+    const message = `La reserva Nº ${booking.idBooking} pasará a estado "Finalizado"`;
+
+    SwalCustoms.confirm("¿Desea cambiar el estado de la reserva?", message).then((result: any) => {
+      if (result) {
+        booking.status = "Finalizado";
+        console.log("booking", booking);
+
+        // this.bookingService.updateStatus(booking).subscribe({
+        //   next: (response: any) => {
+        //     console.log("response", response);
+        //     this.refreshTable();
+        //   },
+        //   error: (error: any) => {
+        //     console.log(error);
+        //   }
+        // });
+      }
+    });
+  }
+
+  openBookingDetailsDialog(booking: Booking) {
     // const dialogRef = this.dialogService.open(DriverSaveComponent, { data: driver });
 
     // dialogRef.afterClosed().subscribe(object => {
@@ -60,18 +129,6 @@ export class BookingMainComponent {
     //     console.log(object);
     //   }
     // });
-  }
-
-  deleteDriver(item: Booking) {
-    // this.driverService.delete(item.idDriver!).subscribe({
-    //   next: (response: any) => {
-    //     SwalCustoms.info("Eliminado correctamente");
-    //     this.refreshTable();
-    //   },
-    //   error: (error: any) => {
-    //     SwalCustoms.nyanAlert(error.message);
-    //   }
-    // })
   }
 
 }
