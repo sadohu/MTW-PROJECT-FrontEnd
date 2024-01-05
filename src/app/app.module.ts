@@ -21,6 +21,7 @@ import { DriverMainComponent } from './components/driver-main/driver-main.compon
 import { DriverSaveComponent } from './dialogs/driver-save/driver-save.component';
 import { DriverSearchComponent } from './dialogs/driver-search/driver-search.component';
 import { BookingMainComponent } from './components/booking-main/booking-main.component';
+import { BookingDetailsComponent } from './dialogs/booking-details/booking-details.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BookingMainComponent } from './components/booking-main/booking-main.com
     CompanySaveComponent,
     DriverSaveComponent,
     DriverSearchComponent,
+    BookingDetailsComponent,
   ],
   imports: [
     BrowserModule,

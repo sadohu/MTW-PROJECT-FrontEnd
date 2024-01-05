@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { BookingDetailsComponent } from 'src/app/dialogs/booking-details/booking-details.component';
 import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Booking } from 'src/app/models/booking.model';
 import { BookingService } from 'src/app/services/booking.service';
@@ -122,13 +123,13 @@ export class BookingMainComponent {
   }
 
   openBookingDetailsDialog(booking: Booking) {
-    // const dialogRef = this.dialogService.open(DriverSaveComponent, { data: driver });
+    const dialogRef = this.dialogService.open(BookingDetailsComponent, { data: booking });
 
-    // dialogRef.afterClosed().subscribe(object => {
-    //   if (object) {
-    //     console.log(object);
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
   }
 
 }
