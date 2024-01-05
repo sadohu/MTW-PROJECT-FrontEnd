@@ -45,7 +45,7 @@ export class CompanyMainComponent {
   }
 
   newBooking(item: Company) {
-    this.router.navigate(['new-booking', item.idCompany]);
+    this.router.navigate(['booking', 'new', item.idCompany]);
   }
 
   openAddDialog() {

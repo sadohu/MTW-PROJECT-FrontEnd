@@ -18,6 +18,10 @@ export class BookingService {
     return this.http.get<Booking[]>(url);
   }
 
+  getById(id: number): Observable<Booking> {
+    return this.http.get<Booking>(`${url}/${id}`);
+  }
+
   save(booking: Booking): Observable<any> {
     return this.http.post(url, booking);
   }

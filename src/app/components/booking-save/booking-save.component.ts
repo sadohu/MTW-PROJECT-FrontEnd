@@ -31,6 +31,8 @@ export class BookingSaveComponent implements OnInit {
   dateForm = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   // timeForm = formatDate(new Date(), 'HH:mm', 'en-US')
   timeForm = "00:00"
+  mode = "";
+  disableOptions = false;
 
   booking: Booking = {
     idBooking: -1,
@@ -65,12 +67,74 @@ export class BookingSaveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Get id from url
+    this.route.params.subscribe(params => {
+      const mode = params['mode'];
+      const id = params['id'];
+
+      if (mode == null || id == null) {
+        SwalCustoms.nyanAlert("Ingrese correctamente a la página de reservas, mediante el botón de nueva reserva de la empresa ó mediante el botón de detalles de reservas.");
+        this.router.navigate(['booking']);
+      }
+
+      if (mode != "new" && mode != "edit") {
+        SwalCustoms.nyanAlert("El Sistema no reconoce el modo de la página de reservas.");
+        this.router.navigate(['booking']);
+      }
+
+      if (id <= 0) {
+        SwalCustoms.nyanAlert("Ingrese un ID válido.");
+        this.router.navigate(['booking']);
+      }
+
+      if (mode == "new") {
+        this.companyService.getById(id).subscribe({
+          next: (response: Company) => {
+            this.company = response;
+            this.disableOptions = true;
+          },
+          error: (error: any) => {
+            if (error.status == 404) {
+              SwalCustoms.nyanAlert("No se encontró la empresa");
+              this.router.navigate(['company']);
+            } else {
+              SwalCustoms.nyanAlert(error.message);
+              this.router.navigate(['company']);
+            }
+          }
+        });
+      }
+
+      if (mode == "edit") {
+        this.bookingService.getById(id).subscribe({
+          next: (response) => {
+            this.booking = response;
+            this.dateForm = format(new Date(this.booking.date!), 'yyyy-MM-dd');
+            this.timeForm = format(new Date(this.booking.time!), 'HH:mm');
+          },
+          error: (error) => {
+            if (error.status == 404) {
+              SwalCustoms.nyanAlert("No se encontró la reserva");
+              this.router.navigate(['booking']);
+            } else {
+              SwalCustoms.nyanAlert(error.message);
+              this.router.navigate(['booking']);
+            }
+          }
+        });
+      }
+
+      this.mode = mode;
+    });
+    /*
+    const mode = this.route.snapshot.paramMap.get('mode');
     const idCompany = this.route.snapshot.paramMap.get('id');
 
-    // Validate id is not null, if it is null, redirect to company
+    if (mode == null || idCompany == null) {
+      SwalCustoms.nyanAlert("Ingrese correctamente a la página de reservas, mediante el botón de nueva reserva de la empresa ó mediante el botón de detalles de reservas.");
+      this.router.navigate(['booking']);
+    }
+
     if (idCompany == null) {
-      this.router.navigate(['company']);
     }
 
     // Get company by id from service and set it to company variable
@@ -88,7 +152,7 @@ export class BookingSaveComponent implements OnInit {
           this.router.navigate(['company']);
         }
       }
-    });
+    });*/
   }
 
   save() {
