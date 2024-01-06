@@ -17,6 +17,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
     exports: [
@@ -38,6 +40,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
         MatIconModule,
         MatMenuModule,
         MatSidenavModule,
+        MatDividerModule,
+        MatTooltipModule,
     ]
 })
 export class AppMaterialModule {
