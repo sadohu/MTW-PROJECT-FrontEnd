@@ -129,7 +129,7 @@
         </button>
 
         <button mat-icon-button matTooltip="Editar reserva" color="accent"
-            *ngIf="booking.status == 'Reserva' || booking.status == 'Pendiente'">
+            *ngIf="booking.status == 'Reserva' || booking.status == 'Pendiente'" (click)="redirectToEditForm()">
             <mat-icon aria-label="Cambiar estado a: Reserva Finalizada">edit</mat-icon>
         </button>
 

@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -46,7 +46,7 @@ export class BookingSaveComponent implements OnInit {
     bill: {}
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService, private bookingService: BookingService) {
+  constructor(private router: Router, private route: ActivatedRoute, private location: Location, private dialogService: MatDialog, private companyService: CompanyService, private utilService: UtilService, private bookingService: BookingService) {
     this.utilService.getUbigeoLimaMetropolitana().subscribe({
       next: (response: Ubigeo[]) => this.ubigeo = response,
       error: (error: any) => SwalCustoms.nyanAlert(error.message)
@@ -162,13 +162,15 @@ export class BookingSaveComponent implements OnInit {
     // this.booking.time = time.toString();
     this.booking.date = this.dateForm;
     this.booking.time = this.timeForm;
-    this.booking.company = this.company;
+    if (this.booking.company?.idCompany == -1)
+      this.booking.company = this.company;
 
     console.log("this.booking", this.booking);
     this.bookingService.save(this.booking).subscribe({
       next: (response: any) => {
         SwalCustoms.info("Se guardó correctamente");
-        this.router.navigate(['company']);
+        // this.router.navigate(['company']);
+        this.location.back();
       },
       error: (error: any) => SwalCustoms.nyanAlert(error.message)
     });
