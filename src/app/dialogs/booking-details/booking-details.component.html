@@ -1,0 +1,145 @@
+<section class="container" style="min-width: 45rem;">
+    <div class="row">
+        <mat-toolbar color="primary">
+            <span class="text-xl">Detalles de Reserva</span>
+        </mat-toolbar>
+    </div>
+
+    <article class="flex flex-col gap-6 m-6">
+        <span class="font-extrabold">Datos de Reserva</span>
+        <div class="row text-center">
+            <div class="col-md-2  font-semibold">
+                <span>ID Reserva</span>
+            </div>
+            <div class="col-md-2">
+                <span>{{ booking.idBooking }}</span>
+            </div>
+
+            <div class="col-md-2 font-semibold">
+                <span>Fecha</span>
+            </div>
+            <div class="col-md-2">
+                <span>{{ booking.date }}</span>
+            </div>
+
+            <div class="col-md-2 font-semibold">
+                <span>Hora</span>
+            </div>
+            <div class="col-md-2">
+                <span>{{ booking.time }}</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Empresa</span>
+            </div>
+            <div class="col-md-4">
+                <span>{{ booking.company?.businessName }}</span>
+            </div>
+
+            <div class="col-md-2 text-center font-semibold">
+                <span>Área</span>
+            </div>
+            <div class="col-md-4">
+                <span>{{ booking.area?.name }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Pasajero</span>
+            </div>
+            <div class="col-md-10">
+                <span>{{ booking.passenger?.names + ' ' + booking.passenger?.lastNames }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Origen</span>
+            </div>
+            <div class="col-md-10">
+                <span>{{ booking.ubigeoPickUp?.name }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Destino</span>
+            </div>
+            <div class="col-md-10">
+                <span>{{ booking.ubigeoDestination?.name }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Tarifa</span>
+            </div>
+            <div class="col-md-2">
+                <span>{{ booking.currency?.name + ' ' + booking.price }}</span>
+            </div>
+
+            <div class="col-md-2 text-center font-semibold">
+                <span>Observaciones</span>
+            </div>
+            <div class="col-md-6">
+                <span>{{ booking.notes }}</span>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <span class="font-bold">Datos de Facturación</span>
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Solicitante</span>
+            </div>
+            <div class="col-md-10">
+                <span>{{ booking.applicant }}</span>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <span class="font-bold">Datos del Conductor</span>
+        <div class="row">
+            <div class="col-md-2 text-center font-semibold">
+                <span>Conductor</span>
+            </div>
+            <div class="col-md-10">
+                <span>{{ booking.driver?.names + ' ' + booking.driver?.lastNames }}</span>
+            </div>
+        </div>
+    </article>
+
+    <mat-divider />
+    <mat-dialog-actions class="row flex justify-evenly">
+        <span class="font-bold">Datos del Conductor</span>
+        <button mat-icon-button color="accent" matTooltip="Asignar conductor" *ngIf="booking.status == 'Reserva'">
+            <mat-icon aria-label="Asignar conductor">hail</mat-icon>
+        </button>
+
+        <!-- <button mat-raised-button matTooltip="Info about the action"
+            aria-label="Button that displays a tooltip when focused or hovered over">
+            Action
+        </button> -->
+
+        <button mat-icon-button color="accent" matTooltip="Iniciar reserva" *ngIf="booking.status == 'Pendiente'">
+            <mat-icon aria-label="Cambiar estado a: Reserva en Proceso">airport_shuttle</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" matTooltip="Finalizar reserva" *ngIf="booking.status == 'En Proceso'">
+            <mat-icon aria-label="Cambiar estado a: Reserva Finalizada">no_crash</mat-icon>
+        </button>
+
+        <button mat-icon-button matTooltip="Editar reserva" color="accent"
+            *ngIf="booking.status == 'Reserva' || booking.status == 'Pendiente'">
+            <mat-icon aria-label="Cambiar estado a: Reserva Finalizada">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" matTooltip="Copiar detalles">
+            <mat-icon aria-label="Cambiar estado a: Reserva Finalizada">assignment</mat-icon>
+        </button>
+    </mat-dialog-actions>
+</section>
