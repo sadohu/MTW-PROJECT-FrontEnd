@@ -63,4 +63,10 @@ export class BookingDetailsComponent implements OnInit {
     // })
 
   }
+
+  copyToClipBoard() {
+    const text = `Reserva #${this.booking.idBooking}\n${this.booking.date} - ${this.booking.time}\nPax: ${this.booking.passenger?.names}\nOrigen: ${this.booking.ubigeoPickUp?.name}\nDestino: ${this.booking.ubigeoDestination?.name}\nObservaciones: ${this.booking.notes}`;
+    navigator.clipboard.writeText(text);
+    SwalCustoms.info("Se ha copiado la información de la reserva al portapapeles");
+  }
 }
