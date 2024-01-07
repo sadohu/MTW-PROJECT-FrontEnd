@@ -4,7 +4,10 @@
             <div class="container mat-elevation-z8">
                 <div class="row">
                     <mat-toolbar color="primary">
-                        <span>Lista de Reservas</span>
+                        <span>
+                            {{ company.idCompany! > 0 ? "Lista de Reservas de " + company.businessName : "Lista de
+                            Reservas" }}
+                        </span>
                     </mat-toolbar>
                 </div>
 
