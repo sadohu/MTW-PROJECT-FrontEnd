@@ -14,6 +14,7 @@ export class AppSettings {
     public static BOOKING_SERVICE = AppSettings.API_ENDPOINT + '/booking';
     public static COMPANY_SERVICE = AppSettings.API_ENDPOINT + '/company';
     public static DRIVER_SERVICE = AppSettings.API_ENDPOINT + '/driver';
+    public static BILL_SERVICE = AppSettings.API_ENDPOINT + '/bill';
 
     /* API Apiperu */
     public static API_APIPERU = 'https://dniruc.apisperu.com/api/v1';

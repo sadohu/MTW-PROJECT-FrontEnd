@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'booking/company-list/:id', component: BookingMainComponent },
   { path: 'booking/:mode/:id', component: BookingSaveComponent },
   { path: 'bill', component: BillMainComponent },
+  { path: 'bill/:mode/:id', component: BillMainComponent },
 
   { path: '', component: LoginComponent },
   { path: 'index', component: IndexComponent },
