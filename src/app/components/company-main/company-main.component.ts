@@ -58,4 +58,8 @@ export class CompanyMainComponent {
     });
   }
 
+  listBookingsByCompany(item: Company) {
+    this.router.navigate(['booking', 'company-list', item.idCompany]);
+  }
+
 }

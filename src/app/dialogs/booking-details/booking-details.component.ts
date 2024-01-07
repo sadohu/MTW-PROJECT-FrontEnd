@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
 import { Booking } from 'src/app/models/booking.model';
 import { BookingService } from 'src/app/services/booking.service';
@@ -62,5 +64,16 @@ export class BookingDetailsComponent implements OnInit {
     //   }
     // })
 
+  }
+
+  redirectToEditForm() {
+    this.dialog.closeAll();
+    this.router.navigate(['booking/edit', this.booking.idBooking]);
+  }
+
+  copyToClipBoard() {
+    const text = `Reserva #${this.booking.idBooking}\n${format(new Date(this.booking.date!), 'eeee dd MMMM', { locale: es })} - ${this.booking.time}\nPax: ${this.booking.passenger?.names}\nOrigen: ${this.booking.ubigeoPickUp?.name}\nDestino: ${this.booking.ubigeoDestination?.name}\nObservaciones: ${this.booking.notes}`;
+    navigator.clipboard.writeText(text);
+    SwalCustoms.info("Se ha copiado la información de la reserva al portapapeles");
   }
 }

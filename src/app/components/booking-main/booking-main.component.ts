@@ -1,11 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { BookingDetailsComponent } from 'src/app/dialogs/booking-details/booking-details.component';
 import { DriverSearchComponent } from 'src/app/dialogs/driver-search/driver-search.component';
 import { Booking } from 'src/app/models/booking.model';
+import { Company } from 'src/app/models/company.model';
 import { BookingService } from 'src/app/services/booking.service';
 import { setListBookingToDto } from 'src/app/Utils/ModelsDto';
 import { BookingDto } from 'src/app/Utils/modelsDto/booking-dto.model';
@@ -17,18 +19,31 @@ import { SwalCustoms } from 'src/app/Utils/SwalCustoms';
   styleUrls: ['./booking-main.component.css']
 })
 
-export class BookingMainComponent {
+export class BookingMainComponent implements OnInit {
   filter: string = "";
   dataSource: any;
   newDriver: any = { idDriver: 0 };
+  company: Company = { idCompany: -1 };
 
   displayedColumns = ["idBooking", "date", "time", "company", "area", "passenger", "pickUp", "destination", "price", "driver", "status", "actions"];
   // , "applicant"
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  constructor(private dialogService: MatDialog, private bookingService: BookingService) {
-    this.refreshTable();
+  constructor(private dialogService: MatDialog, private bookingService: BookingService, private route: ActivatedRoute) {
+
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const idCompany = params['id'];
+      if (idCompany >= 0) {
+        this.company.idCompany = idCompany;
+        this.refreshTableByCompany();
+      } else {
+        this.refreshTable();
+      }
+    });
   }
 
   applyFilter() {
@@ -41,6 +56,22 @@ export class BookingMainComponent {
 
   refreshTable() {
     this.bookingService.getAll().subscribe({
+      next: (response: any) => {
+        // console.log("response", response);
+        const listDto = setListBookingToDto(response);
+        // console.log("listDto", listDto);
+        this.dataSource = new MatTableDataSource<BookingDto>(listDto);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    })
+  }
+
+  refreshTableByCompany() {
+    this.bookingService.getByCompany(this.company.idCompany!).subscribe({
       next: (response: any) => {
         // console.log("response", response);
         const listDto = setListBookingToDto(response);
