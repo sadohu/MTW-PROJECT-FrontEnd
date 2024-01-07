@@ -7,6 +7,7 @@ import { CompanyMainComponent } from './components/company-main/company-main.com
 import { BookingSaveComponent } from './components/booking-save/booking-save.component';
 import { DriverMainComponent } from './components/driver-main/driver-main.component';
 import { BookingMainComponent } from './components/booking-main/booking-main.component';
+import { BillMainComponent } from './components/bill-main/bill-main.component';
 
 const routes: Routes = [
   { path: 'company', component: CompanyMainComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'booking', component: BookingMainComponent },
   { path: 'booking/company-list/:id', component: BookingMainComponent },
   { path: 'booking/:mode/:id', component: BookingSaveComponent },
+  { path: 'bill', component: BillMainComponent },
 
   { path: '', component: LoginComponent },
   { path: 'index', component: IndexComponent },

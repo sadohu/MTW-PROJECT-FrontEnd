@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
     { idMenu: 1, name: 'Listado de Empresas', icon: 'person', url: '/company' },
     { idMenu: 2, name: 'Listado de Conductores', icon: 'hail', url: '/driver' },
     { idMenu: 3, name: 'Listado de Reservas', icon: 'assignment', url: '/booking' },
+    { idMenu: 4, name: 'Listado de Boletas y Facturas', icon: 'payments', url: '/bill' },
   ];
 
   showFiller = false;
